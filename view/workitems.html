@@ -1,0 +1,81 @@
+<template name="workitems">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="campaignId">New Campaign ticket ID</label>
+                    <input type="text" id="campaignId" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Developer name
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {{#each developers}}
+                                <li><a href="#">{{name}}</a></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Qc name
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {{#each qcs}}
+                                <li><a href="#">{{name}}</a></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <form id="items">
+                    <table class="table table-striped" id="workitemsTable">
+                        <thead>
+                            <tr>
+                                <th>Item name</th>
+                                <th>Dev est</th>
+                                <th>Qc est</th>
+                                <th>Group</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" required id="workitemName" class="form-control" title="Workitme Name">
+                                </td>
+                                <td>
+                                    <input type="number" required step="0.1" id="devEst" class="form-control" title="Dev estimate">
+                                </td>
+                                <td>
+                                    <input type="number" required step="0.1" id="qcEst" class="form-control" title="Qc estimate">
+                                </td>
+                                <td>
+                                    <input type="number" required step="1" id="group" class="form-control" title="Group id">
+                                </td>
+                                <td>
+                                    <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <button class="btn btn-primary" id="addNewItem" >Add another item</button>
+                <button class="btn btn-primary" id="generate">Generate</button>
+            </div>
+            <div class="col-md-5">
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
