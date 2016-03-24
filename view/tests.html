@@ -1,0 +1,12 @@
+<template name="tests">
+    <div class="container">
+        <div class="row">
+            <ul>
+                {{#each tests}}
+                    <li><a href="/workitems/{{_id}}">{{client}} -- {{name}}</a></li>
+                {{/each}}
+                <li><a href="#" id="addNewTest">Add new test</a></li>
+            </ul>
+        </div>
+    </div>
+</template>
