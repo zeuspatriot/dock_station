@@ -115,11 +115,35 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <ul>
-                    {{#each groupedLastWorkItems}}
-                        <li>{{value.name}}: <br>Dev Estimate: {{value.devEst}}, QC Estimate: {{value.qcEst}}</li>
-                    {{/each}}
-                </ul>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Name</th>
+                            <th>Dev H</th>
+                            <th>Qc H</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each groupedLastWorkItems}}
+                            <tr>
+                                <td>
+                                    {{group}}
+                                </td>
+                                <td>
+                                    {{value.name}}
+                                </td>
+                                <td>
+                                    {{value.devEst}}
+                                </td>
+                                <td>
+                                    {{value.qcEst}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <button class="btn btn-success" id="createWorkItems">Post to YouTrack</button>
             </div>
         </div>
     </div>
