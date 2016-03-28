@@ -10,3 +10,8 @@ Router.route("/",{
     template: "tests",
     name: "tests"
 });
+
+Router.route("/login/",{
+    template:"loginPage",
+    name:"login"
+});

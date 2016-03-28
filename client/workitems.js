@@ -34,10 +34,10 @@ function youtrackReq (type, URL, data, headers){
 
 Template.workitems.helpers({
     "developers": function(){
-      return Users.find({role:'dev'});
+      return People.find({role:'dev'});
     },
     "qcs": function(){
-      return Users.find({role:'qc'});
+      return People.find({role:'qc'});
     },
     "test": function(){
         return this;
@@ -92,12 +92,12 @@ Template.workitems.events({
     },
     "click li.devName": function(event, global){
         jQuery("div#settings input#devName").val(this.email);
-        jQuery("div#settings button#devNameBtn span#text").text(event.target.text);
+        //jQuery("div#settings button#devNameBtn span#text").text(event.target.text);
         Tests.update(global.data._id,{$set:{dev:this}});
     },
     "click li.qcName": function(event,global){
         jQuery("div#settings input#qcName").val(this.email);
-        jQuery("div#settings button#qcNameBtn span#text").text(event.target.text);
+        //jQuery("div#settings button#qcNameBtn span#text").text(event.target.text);
         Tests.update(global.data._id,{$set:{qc:this}});
     },
     "click #setNewCampId": function(event, global){

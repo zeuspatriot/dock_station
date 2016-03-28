@@ -1,0 +1,42 @@
+<template name="loginPage">
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Create account</h3>
+                </div>
+                <div class="panel-body">
+                    <form id="createUser">
+                        <div class="form-group">
+                            <label for="newUserEmail">YouTrack Email address</label>
+                            <input type="email" name="email" required class="form-control" id="newUserEmail" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserPassword">YouTrack Password</label>
+                            <input type="password" name="password" required class="form-control" id="newUserPassword" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="newUserName">Human readable name</label>
+                            <input type="text" name="name" required class="form-control" id="newUserName" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <div class="dropdown" id="jobCode">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span id="positionText">Role</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="#">Dev</a></li>
+                                    <li><a href="#">Qc</a></li>
+                                    <li><a href="#">Ta</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" name="role" class="form-control hidden" id="newUserRole" placeholder="job code">
+                        </div>
+                        <button type="submit" class="btn btn-default">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
