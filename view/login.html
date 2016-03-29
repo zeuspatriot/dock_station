@@ -1,42 +1,68 @@
 <template name="loginPage">
     <div class="container">
+        <br>
         <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Create account</h3>
-                </div>
-                <div class="panel-body">
-                    <form id="createUser">
-                        <div class="form-group">
-                            <label for="newUserEmail">YouTrack Email address</label>
-                            <input type="email" name="email" required class="form-control" id="newUserEmail" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="newUserPassword">YouTrack Password</label>
-                            <input type="password" name="password" required class="form-control" id="newUserPassword" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="newUserName">Human readable name</label>
-                            <input type="text" name="name" required class="form-control" id="newUserName" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <div class="dropdown" id="jobCode">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <span id="positionText">Role</span>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Dev</a></li>
-                                    <li><a href="#">Qc</a></li>
-                                    <li><a href="#">Ta</a></li>
-                                </ul>
+            {{#if createAccount}}
+                <div class="panel panel-default createAccount col-md-4 col-md-offset-4 " style="padding: 0">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Create account</h3>
+                    </div>
+                    <div class="panel-body ">
+                        <form id="createUser">
+                            <div class="form-group">
+                                <label for="newUserEmail">YouTrack login name.<p class="text-danger">extremely important to use YouTrack login data</p></label>
+                                <input type="text" name="email" required class="form-control" id="newUserEmail" placeholder="Email">
                             </div>
-                            <input type="text" name="role" class="form-control hidden" id="newUserRole" placeholder="job code">
-                        </div>
-                        <button type="submit" class="btn btn-default">Create</button>
-                    </form>
+                            <div class="form-group">
+                                <label for="newUserPassword">YouTrack Password.<p class="text-danger">extremely important to use YouTrack password</p></label>
+                                <input type="password" name="password" required class="form-control" id="newUserPassword" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserName">Human readable name</label>
+                                <input type="text" name="name" required class="form-control" id="newUserName" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <div class="dropdown" id="jobCode">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span id="positionText">Role</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Dev</a></li>
+                                        <li><a href="#">Qc</a></li>
+                                        <li><a href="#">Ta</a></li>
+                                    </ul>
+                                    <p class="text-danger">Please select appropriate Job-title</p>
+                                </div>
+                                <input type="text" name="role" class="form-control hidden" id="newUserRole" placeholder="job code">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+                        <a href="#" class="pull-right" id="loginLink">I want to Log in</a>
+                    </div>
                 </div>
-            </div>
+            {{/if}}
+            {{#unless createAccount}}
+                <div class="panel panel-default login col-md-4 col-md-offset-4" style="padding: 0">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Create account</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="loginUser">
+                            <div class="form-group">
+                                <label for="newUserEmail">YouTrack Email address</label>
+                                <input type="email" name="email" required class="form-control" id="newUserEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserPassword">YouTrack Password</label>
+                                <input type="password" name="password" required class="form-control" id="newUserPassword" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                        </form>
+                        <a href="#" class="pull-right" id="createAcc">Register</a>
+                    </div>
+                </div>
+            {{/unless}}
         </div>
     </div>
 </template>

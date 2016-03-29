@@ -15,3 +15,14 @@ Router.route("/login/",{
     template:"loginPage",
     name:"login"
 });
+
+Router.onBeforeAction(function () {
+    if (!Meteor.user() && !Meteor.loggingIn()) {
+        this.redirect('/login');
+    } else {
+        // required by Iron to process the route handler
+        this.next();
+    }
+}, {
+    except: ['login']
+});
