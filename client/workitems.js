@@ -19,25 +19,25 @@ function summEstimate(test){
 }
 function youtrackReq (type, URL, data, headers){
     var youtrackBaseUrl = "https://maxymiser.myjetbrains.com/youtrack/rest/";
+    var currUser = Meteor.user();
     var request = {
         type: type,
         withCredentials: true,
         url: youtrackBaseUrl + URL,
         headers: {
             'Accept':'application/json',
-            "Authorization": "Basic " + btoa("dmitriy.gorbachev@maxymiser.com:Salosila123")
+            "Authorization": "Basic " + btoa(currUser.profile.email+":"+currUser.profile.pass)
         },
         data: data
     };
     return jQuery.ajax(request);
 }
-
 Template.workitems.helpers({
     "developers": function(){
-      return People.find({role:'dev'});
+      return Meteor.users.find({"profile.role":'dev'});
     },
     "qcs": function(){
-      return People.find({role:'qc'});
+      return Meteor.users.find({"profile.role":'qc'});
     },
     "test": function(){
         return this;
@@ -58,6 +58,11 @@ Template.workitems.helpers({
         else{
             return false;
         }
+    },
+    "isTa": function(){
+        var isTa = false;
+        if (Meteor.user()) isTa = Meteor.user().profile.role == "ta";
+        return isTa;
     }
 });
 
@@ -65,7 +70,7 @@ Template.workitems.events({
     'click #addNewItem': function(){
 
         var row = jQuery("tbody tr").first().clone();
-        jQuery("table tbody").append(row);
+        jQuery("table#workitemsTable tbody").append(row);
     },
     'click a.remove': function(event){
         jQuery(event.target).parent().parent().parent().remove();
@@ -91,13 +96,11 @@ Template.workitems.events({
         Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment}}});
     },
     "click li.devName": function(event, global){
-        jQuery("div#settings input#devName").val(this.email);
-        //jQuery("div#settings button#devNameBtn span#text").text(event.target.text);
+        jQuery("div#settings input#devName").val(this.profile.email);
         Tests.update(global.data._id,{$set:{dev:this}});
     },
     "click li.qcName": function(event,global){
-        jQuery("div#settings input#qcName").val(this.email);
-        //jQuery("div#settings button#qcNameBtn span#text").text(event.target.text);
+        jQuery("div#settings input#qcName").val(this.profile.email);
         Tests.update(global.data._id,{$set:{qc:this}});
     },
     "click #setNewCampId": function(event, global){

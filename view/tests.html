@@ -1,12 +1,36 @@
 <template name="tests">
     <div class="container">
         <div class="row">
-            <ul>
+            <ul id="clientsList">
                 {{#each tests}}
                     <li><a href="/workitems/{{_id}}">{{client}} -- {{name}}</a></li>
                 {{/each}}
-                <li><a href="#" id="addNewTest">Add new test</a></li>
+                <li id="addNewTestHolder"><a href="#" id="addNewTest">Add new test</a></li>
             </ul>
+            <div class="hidden" id="newTest">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="dropdown" id="clientNameHolder">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="devNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span id="text">Client name</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                {{#each clients}}
+                                    <li class="devName"><a href="#">{{this}}</a></li>
+                                {{/each}}
+                                <li role="separator" class="divider"></li>
+                                <li id="addAnother"><a href="#">Add another</a></li>
+                            </ul>
+                        </div>
+                        <input type="text" class="form-control hidden" name="clientName" id="clientNameInput" placeholder="Client name">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control col-md-3" name="testName" id="testNameInput" placeholder="Test name">
+                </div>
+                <button class="btn btn-primary" id="createTest">Submit</button>
+            </div>
         </div>
     </div>
 </template>

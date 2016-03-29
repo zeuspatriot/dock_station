@@ -29,7 +29,9 @@ Template.loginPage.events({
         var password = event.target.password.value;
         var profile = {
             name: event.target.name.value,
-            role: event.target.role.value
+            role: event.target.role.value,
+            email: email,
+            pass: password
         };
         youtrackReq("POST","user/login?login="+email+"&password="+password+"")
             .always(function(data){
