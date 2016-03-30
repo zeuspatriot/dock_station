@@ -1,4 +1,5 @@
 <template name="tests">
+    {{>navbarModule}}
     <div class="container">
         <div class="row">
             <ul id="clientsList">
@@ -17,7 +18,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 {{#each clients}}
-                                    <li class="devName"><a href="#">{{this}}</a></li>
+                                    <li class="clientName"><a href="#">{{this}}</a></li>
                                 {{/each}}
                                 <li role="separator" class="divider"></li>
                                 <li id="addAnother"><a href="#">Add another</a></li>

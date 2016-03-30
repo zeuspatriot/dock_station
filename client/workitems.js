@@ -43,6 +43,7 @@ Template.workitems.helpers({
         return this;
     },
     "currentWorkitems": function(){
+        Session.get("eventTrigger");
         if(this.estimate){
             return this.estimate[this.estimate.length-1].items;
         }
@@ -51,6 +52,7 @@ Template.workitems.helpers({
         }
     },
     "groupedLastWorkItems": function(){
+        Session.get("eventTrigger");
         if(this.estimate){
             var result = summEstimate(this);
             return _.map(result, function(val,key){return {group: key, value: val}});
@@ -63,19 +65,29 @@ Template.workitems.helpers({
         var isTa = false;
         if (Meteor.user()) isTa = Meteor.user().profile.role == "ta";
         return isTa;
+    },
+    "formatDate": function(date){
+        var formatedDate = date.getDay() +"-"+ date.getMonth() +"-"+ date.getFullYear() +": "+date.getHours()+"."+date.getMinutes();
+        return formatedDate;
+    },
+    "estimates": function(){
+        var estimates = this.estimate;
+        if(estimates) _.extend(_.last(estimates), {"active": true});
+        return estimates;
     }
 });
 
 Template.workitems.events({
     'click #addNewItem': function(){
 
-        var row = jQuery("tbody tr").first().clone();
+        var row = '<tr><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
         jQuery("table#workitemsTable tbody").append(row);
     },
     'click a.remove': function(event){
         jQuery(event.target).parent().parent().parent().remove();
     },
-    'click #generate': function(event, global){
+    'submit form#generate': function(event, global){
+        event.preventDefault();
         var rows = jQuery("table#workitemsTable tbody tr");
         var workitems = [];
         var comment = jQuery("#submitComment").val();
@@ -86,16 +98,18 @@ Template.workitems.events({
             var group = jQuery(rows[ind]).find("#group").val();
             var item = {
                 name: name,
-                devEst: parseInt(devEst),
-                qcEst: parseInt(qcEst),
+                devEst: parseFloat(devEst),
+                qcEst: parseFloat(qcEst),
                 group: parseInt(group)
             };
             workitems.push(item);
 
         });
-        Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment}}});
+        jQuery("#estimateHistory a").removeClass("active");
+        Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment, updater: Meteor.user().profile.name,date: new Date()}}});
     },
     "click li.devName": function(event, global){
+        console.log(this);
         jQuery("div#settings input#devName").val(this.profile.email);
         Tests.update(global.data._id,{$set:{dev:this}});
     },
@@ -109,8 +123,8 @@ Template.workitems.events({
     },
     "click #createWorkItems": function(event, global){
         var workitems = summEstimate(global.data);
-        var dev = global.data.dev;
-        var qc = global.data.qc;
+        var dev = global.data.dev.profile.email;
+        var qc = global.data.qc.profile.email;
         var mainTicketId =  global.data.testId;
         var promise;
         Object.keys(workitems).forEach(function(key){
@@ -150,6 +164,18 @@ Template.workitems.events({
                     });
             }
         });
+    },
+    "click #estimateHistory a": function(event, global){
+        var activeEst = _.extend(global.data.estimate.splice(_.indexOf(global.data.estimate, this),1),{"active":true});
+        global.data.estimate.push(activeEst[0]);
+        var counter = Session.get("eventTrigger") + 1 || 0;
+        Session.set("eventTrigger",counter);
+        console.log(event.target);
+        var target = jQuery(event.target).closest("a").length
+            ? jQuery(event.target).closest("a")
+            : jQuery(event.target);
+        jQuery("#estimateHistory a").removeClass("active");
+        target.addClass("active");
     }
 
 });

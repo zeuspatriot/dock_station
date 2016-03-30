@@ -1,25 +1,22 @@
 <template name="workitems">
+    {{>navbarModule}}
     <div class="container">
         <div class="row">
             {{#if isTa}}
                 <div class="col-md-4" id="settings">
-                    <!--<div class="form-group">-->
-                        <!--<label for="campaignId">New Campaign ticket ID</label>-->
-                        <!---->
-                    <!--</div>-->
                     <div class="form-group">
                         <label for="campaignId">New Campaign ticket ID</label>
                         <div class="input-group">
                             <input type="text" id="campaignId" required class="form-control" value="{{test.testId}}">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" id="setNewCampId">Set ID</button>
+                            <button class="btn {{#if test.testId}}btn-success{{else}}btn-primary{{/if}}" id="setNewCampId">{{#if test.testId}}Update ID{{else}}Set ID{{/if}}</button>
                         </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="devNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span id="text">{{#if test.dev}}{{test.dev.name}}{{else}}Developer name{{/if}}</span>
+                                <span id="text">{{#if test.dev}}{{test.dev.profile.name}}{{else}}Developer name{{/if}}</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -27,13 +24,14 @@
                                     <li class="devName"><a href="#">{{profile.name}}</a></li>
                                 {{/each}}
                             </ul>
+                            <span class="pull-right">Select developer</span>
                         </div>
                         <input type="text" id="devName" class="form-control hidden">
                     </div>
                     <div class="form-group">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="qcNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span id="text">{{#if test.qc}}{{test.qc.name}}{{else}}Qc name{{/if}}</span>
+                                <span id="text">{{#if test.qc}}{{test.qc.profile.name}}{{else}}Qc name{{/if}}</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -41,6 +39,7 @@
                                     <li class="qcName"><a href="#">{{profile.name}}</a></li>
                                 {{/each}}
                             </ul>
+                            <span class="pull-right">Select Qc</span>
                         </div>
                         <input type="text" id="qcName" class="form-control hidden">
                     </div>
@@ -50,7 +49,8 @@
 
         <div class="row">
             <div class="col-md-7">
-                <form id="items">
+                <h3>Provide estimate</h3>
+                <form id="generate">
                     <table class="table table-striped" id="workitemsTable">
                         <thead>
                             <tr>
@@ -87,13 +87,13 @@
                                         <input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name">
                                     </td>
                                     <td>
-                                        <input type="number" required step="0.1" id="devEst" name="devEst" class="form-control" title="Dev estimate">
+                                        <input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
                                     </td>
                                     <td>
-                                        <input type="number" required step="0.1" id="qcEst" name="qcEst" class="form-control" title="Qc estimate">
+                                        <input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
                                     </td>
                                     <td>
-                                        <input type="number" required step="1" id="group" name="group" class="form-control" title="Group id">
+                                        <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="1">
                                     </td>
                                     <td>
                                         <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
@@ -102,32 +102,36 @@
                             {{/unless}}
                         </tbody>
                     </table>
+                <div class="form-group row"  style="padding-left: 20px; padding-right: 15px">
+                    <button type="button" class="btn btn-default center-block" id="addNewItem" style="width: 100%" >Add another item</button>
+                </div>
+
+                <div class="form-group">
+
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary" id="generate">Form Work-items</button>
+                        </span>
+                            <input type="text" id="submitComment" required class="form-control" placeholder="Comment to your estimate">
+                        </div>
+
+
+                </div>
                 </form>
-                <div class="form-group">
-
-                    <button class="btn btn-primary" id="addNewItem" >Add another item</button>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" id="generate">Generate</button>
-                    </span>
-                        <input type="text" id="submitComment" class="form-control" placeholder="Optional comment">
-                    </div>
-                </div>
             </div>
             <div class="col-md-5">
-                <table class="table table-striped">
-                    <thead>
+                <div class="row">
+                    <h3>Final Workitems</h3>
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
                             <th>Group</th>
                             <th>Name</th>
                             <th>Dev H</th>
                             <th>Qc H</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         {{#each groupedLastWorkItems}}
                             <tr>
                                 <td>
@@ -144,11 +148,30 @@
                                 </td>
                             </tr>
                         {{/each}}
-                    </tbody>
-                </table>
-                {{#if isTa}}
-                    <button class="btn btn-success" id="createWorkItems">Post to YouTrack</button>
-                {{/if}}
+                        </tbody>
+                    </table>
+                    {{#if isTa}}
+                    <div class="form-group row"  style="padding-left: 25px; padding-right: 25px">
+                        <button class="btn btn-success" id="createWorkItems" style="width: 100%" >Post to YouTrack</button>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="row">
+                    <h3>Change history</h3>
+                    <div class="list-group" id="estimateHistory">
+                        {{#each estimates}}
+                            <a href="#" class="list-group-item {{#if active}}active{{/if}}">
+                                <h4 class="list-item-heading">
+                                    {{comment}}.
+                                </h4>
+                                <p class="list-item-text">
+                                    By: {{updater}}
+                                    <span class="badge pull-right">{{formatDate date}}</span>
+                                </p>
+                            </a>
+                        {{/each}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

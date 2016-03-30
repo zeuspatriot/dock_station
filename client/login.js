@@ -48,7 +48,12 @@ Template.loginPage.events({
                     alert(data.responseText);
                 }
             });
-
+        Accounts.createUser({email:email,password: password, profile:profile},function(err){
+            if(err) alert(err.message);
+            else{
+                Router.go("/");
+            }
+        });
     },
     "submit form#loginUser": function(event){
         event.preventDefault();

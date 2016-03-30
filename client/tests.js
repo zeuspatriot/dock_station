@@ -1,6 +1,6 @@
 Template.tests.helpers({
     "tests": function(){
-        return Tests.find({});
+        return Tests.find({},{sort:{client:1,name:1}});
     },
     "clients": function(){
         var tests = Tests.find({});
@@ -20,7 +20,7 @@ Template.tests.events({
         jQuery("#clientNameInput").removeClass("hidden");
         jQuery("#clientNameHolder").hide();
     },
-    "click #clientNameHolder li a": function(event){
+    "click #clientNameHolder li.clientName a": function(event){
         jQuery("#clientNameInput").val(event.target.text);
         jQuery("#clientNameHolder span#text").text(event.target.text);
     },
@@ -31,15 +31,6 @@ Template.tests.events({
         Tests.insert({client:clientName, name:testName}, function(err, res){
             console.log(err,res);
             Router.go("/workitems/"+res);
-            //jQuery("#newTest").addClass("hidden");
-            //jQuery("#clientNameInput").addClass("hidden");
-            //jQuery("#clientNameHolder").show();
-            //
-            //jQuery("#clientNameInput").val("");
-            //jQuery("#testNameInput").val("");
-            //jQuery("#clientNameHolder span#text").text("Client Name");
-            //
-            //jQuery("#addNewTestHolder").show();
         })
     }
 });
