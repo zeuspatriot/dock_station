@@ -7,13 +7,23 @@ Router.route("/users", {
     name: "users"
 });
 Router.route("/",{
-    template: "tests",
+    template: "clientList",
     name: "tests"
 });
 
 Router.route("/login/",{
     template:"loginPage",
     name:"login"
+});
+Router.route("/clients",{
+    template: "clientList",
+    name: "clientList"
+});
+Router.route("/clients/:client",function(){
+    var userSector = "";
+    if(Meteor.user()) userSector = Meteor.user().profile.sector;
+    var clientTests = Tests.find({client:this.params.client,sector: userSector});
+    this.render('tests',{data:clientTests});
 });
 
 Router.onBeforeAction(function () {

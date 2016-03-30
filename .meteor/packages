@@ -22,3 +22,5 @@ twbs:bootstrap
 iron:router
 accounts-ui
 accounts-password
+juliancwirko:s-alert
+juliancwirko:s-alert-bouncyflip
