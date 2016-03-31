@@ -140,6 +140,7 @@ Template.workitems.events({
         }
         var mainTicketId =  global.data.testId;
         var promise;
+        var counter = Object.keys(workitems).length;
 
         Object.keys(workitems).sort().forEach(function(key){
             console.log(key);

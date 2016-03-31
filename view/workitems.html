@@ -4,7 +4,7 @@
     <div class="container">
         <h2>{{test.client}}: {{test.name}} {{#if test.testId}}<small><a target="_blank" href="https://maxymiser.myjetbrains.com/youtrack/issue/{{test.testId}}"><span class="glyphicon glyphicon-link"></span></a></small>{{/if}}</h2>
         <div class="row">
-            {{#if isTa}}
+
                 <div class="col-md-4" id="settings">
                     <div class="form-group">
                         <label for="campaignId">New Campaign ticket ID</label>
@@ -15,38 +15,40 @@
                         </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="devNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span id="text">{{#if test.dev}}{{test.dev.profile.name}}{{else}}Developer name{{/if}}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                {{#each developers}}
-                                    <li class="devName"><a href="#">{{profile.name}}</a></li>
-                                {{/each}}
-                            </ul>
-                            <span class="pull-right">Select developer</span>
+                    {{#if isTa}}
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="devNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span id="text">{{#if test.dev}}{{test.dev.profile.name}}{{else}}Developer name{{/if}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    {{#each developers}}
+                                        <li class="devName"><a href="#">{{profile.name}}</a></li>
+                                    {{/each}}
+                                </ul>
+                                <span class="pull-right">Select developer</span>
+                            </div>
+                            <input type="text" id="devName" class="form-control hidden">
                         </div>
-                        <input type="text" id="devName" class="form-control hidden">
-                    </div>
-                    <div class="form-group">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="qcNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span id="text">{{#if test.qc}}{{test.qc.profile.name}}{{else}}Qc name{{/if}}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                {{#each qcs}}
-                                    <li class="qcName"><a href="#">{{profile.name}}</a></li>
-                                {{/each}}
-                            </ul>
-                            <span class="pull-right">Select Qc</span>
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="qcNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span id="text">{{#if test.qc}}{{test.qc.profile.name}}{{else}}Qc name{{/if}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    {{#each qcs}}
+                                        <li class="qcName"><a href="#">{{profile.name}}</a></li>
+                                    {{/each}}
+                                </ul>
+                                <span class="pull-right">Select Qc</span>
+                            </div>
+                            <input type="text" id="qcName" class="form-control hidden">
                         </div>
-                        <input type="text" id="qcName" class="form-control hidden">
-                    </div>
+                    {{/if}}
                 </div>
-            {{/if}}
+
         </div>
 
         <div class="row">

@@ -95,7 +95,7 @@ Template.loginPage.events({
                 });
         }
         //Bypass YouTrack AUTH for debugging purpose --> uncomment following code, and comment POST to YouTrack
-        //Accounts.createUser({email:email,password: password, profile:profile},function(err){
+        //Accounts.createUser({username:email,password: password, profile:profile},function(err){
         //    if(err) alert(err.message);
         //    else{
         //        Router.go("/");
