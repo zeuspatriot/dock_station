@@ -71,20 +71,44 @@ Template.workitems.helpers({
         return isTa;
     },
     "formatDate": function(date){
-        var formatedDate = date.getDay() +"-"+ date.getMonth() +"-"+ date.getFullYear() +": "+date.getHours()+"."+date.getMinutes();
+        var formatedDate = date.getDay() +"-"+ date.getMonth() +"-"+ date.getFullYear() +": "+date.getHours()+":"+date.getMinutes();
         return formatedDate;
     },
     "estimates": function(){
         var estimates = this.estimate;
         if(estimates) _.extend(_.last(estimates), {"active": true});
         return estimates;
+    },
+    "presetItems": function(){
+        var items = [
+            {
+                name: "",
+                group: 1
+            },
+            {
+                name: "Publish Instruction",
+                group: 55
+            },
+            {
+                name: "GIT Merge request",
+                group: 56
+            },
+            {
+                name: "Qa Report",
+                group: 57
+            },
+            {
+                name: "System testing",
+                group: 58
+            }
+        ];
+        return items;
     }
 });
 
 Template.workitems.events({
     'click #addNewItem': function(){
-
-        var row = '<tr class="added"><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
+        var row = '<tr class="added"><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
         jQuery("table#workitemsTable tbody").append(row);
     },
     'click a.remove': function(event){
@@ -124,6 +148,7 @@ Template.workitems.events({
     },
     "click #setNewCampId": function(event, global){
         var newCampId = jQuery("#campaignId").val();
+
         Tests.update(global.data._id,{$set:{testId: newCampId}});
     },
     "click #createWorkItems": function(event, global){
@@ -145,13 +170,16 @@ Template.workitems.events({
         Object.keys(workitems).sort().forEach(function(key){
             console.log(key);
             var item = workitems[key];
+            var devEst = item.devEst;
+            var qcEst = item.qcEst;
+            var estimation = (item.devEst+item.qcEst);
             if(key === "1"){
                 promise = youtrackReq("POST","issue/"+mainTicketId+"/execute?command=clone");
                 promise = promise.then(function(){
                     return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+sort+by%3A+created+")
                 }).then(function(data){
                     createdItemId = data.issue[0].id;
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Dev Estimate "+item.devEst+" QC Estimate "+item.qcEst+" Estimation "+(item.devEst+item.qcEst)+" Work Item State Backlog subtask of "+mainTicketId+" ")
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" Work Item State Backlog subtask of "+mainTicketId+" ")
                 }).then(function(){
                     return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
                 }).then(function(){
@@ -166,7 +194,7 @@ Template.workitems.events({
                 })
                 .then(function(data){
                     createdItemId = data.issue[0].id;
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Dev Estimate "+item.devEst+" QC Estimate "+item.qcEst+" Estimation "+(item.devEst+item.qcEst)+" Work Item State Backlog subtask of "+mainTicketId+" ");
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" Work Item State Backlog subtask of "+mainTicketId+" ");
                 })
                 .then(function(){
                     return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
