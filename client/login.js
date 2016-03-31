@@ -79,7 +79,7 @@ Template.loginPage.events({
                 .always(function(data){
                     console.log("in Done: ",data);
                     if(data.status == 200){
-                        Accounts.createUser({email:email,password: password, profile:profile},function(err){
+                        Accounts.createUser({username:email,password: password, profile:profile},function(err){
                             if(err) sAlert.error(err.message);
                             else{
                                 Router.go("/");
@@ -106,8 +106,8 @@ Template.loginPage.events({
         event.preventDefault();
         var email = event.target.email.value;
         var password = event.target.password.value;
-        Meteor.loginWithPassword(email, password,function(err){
-            if(err) alert(err.message);
+        Meteor.loginWithPassword({username: email}, password,function(err){
+            if(err) sAlert.error(err.message);
             else{
                 Router.go("/");
             }
