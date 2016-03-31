@@ -2,6 +2,7 @@
     {{>navbarModule}}
     {{>sAlert}}
     <div class="container">
+        <h2>{{test.client}}: {{test.name}} {{#if test.testId}}<small><a target="_blank" href="https://maxymiser.myjetbrains.com/youtrack/issue/{{test.testId}}"><span class="glyphicon glyphicon-link"></span></a></small>{{/if}}</h2>
         <div class="row">
             {{#if isTa}}
                 <div class="col-md-4" id="settings">
