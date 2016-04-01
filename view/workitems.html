@@ -72,10 +72,10 @@
                                         <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="{{name}}">
                                     </td>
                                     <td>
-                                        <input type="number" required step="0.1" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="{{devEst}}">
+                                        <input type="number" required step="1" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="{{devEst}}">
                                     </td>
                                     <td>
-                                        <input type="number" required step="0.1" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="{{qcEst}}">
+                                        <input type="number" required step="1" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="{{qcEst}}">
                                     </td>
                                     <td>
                                         <input type="number" required step="1" id="group" name="group" class="form-control" title="Group id" value="{{group}}">
@@ -86,91 +86,25 @@
                                 </tr>
                             {{/each}}
                             {{#unless currentWorkitems}}
-                                <tr id="initial" class="added">
-                                    <td>
-                                        <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="Publish Instruction">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="55">
-                                    </td>
-                                    <td>
-                                        <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                    </td>
-                                </tr>
-                                <tr id="initial" class="added">
-                                    <td>
-                                        <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="GIT Merge request">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="56">
-                                    </td>
-                                    <td>
-                                        <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                    </td>
-                                </tr>
-                                <tr id="initial" class="added">
-                                    <td>
-                                        <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="Qa Report">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="57">
-                                    </td>
-                                    <td>
-                                        <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                    </td>
-                                </tr>
-                                <tr id="initial" class="added">
-                                    <td>
-                                        <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="System testing">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="58">
-                                    </td>
-                                    <td>
-                                        <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                    </td>
-                                </tr>
-                                <tr id="initial" class="added">
-                                    <td>
-                                        <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" placeholder="Item name">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="0.1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="1">
-                                    </td>
-                                    <td>
-                                        <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                    </td>
-                                </tr>
+                                {{#each presetItems}}
+                                    <tr id="initial" class="added">
+                                        <td>
+                                            <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="{{name}}">
+                                        </td>
+                                        <td>
+                                            <input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
+                                        </td>
+                                        <td>
+                                            <input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
+                                        </td>
+                                        <td>
+                                            <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="{{group}}">
+                                        </td>
+                                        <td>
+                                            <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
                             {{/unless}}
                         </tbody>
                     </table>

@@ -77,7 +77,7 @@ Template.workitems.helpers({
     "estimates": function(){
         var estimates = this.estimate;
         if(estimates) _.extend(_.last(estimates), {"active": true});
-        return estimates.reverse();
+        return estimates;
     },
     "presetItems": function(){
         var items = [
