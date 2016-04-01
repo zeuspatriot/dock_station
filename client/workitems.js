@@ -77,7 +77,8 @@ Template.workitems.helpers({
     "estimates": function(){
         var estimates = this.estimate;
         if(estimates) _.extend(_.last(estimates), {"active": true});
-        return estimates;
+        console.log(estimates);
+        return estimates.reverse();
     },
     "presetItems": function(){
         var items = [
@@ -136,6 +137,7 @@ Template.workitems.events({
         jQuery("#estimateHistory a").removeClass("active");
         jQuery("table#workitemsTable tbody tr.added").remove();
         Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment, updater: Meteor.user().profile.name,date: new Date()}}});
+        jQuery("#estimateHistory a:eq(0)").addClass("active")
     },
     "click li.devName": function(event, global){
         console.log(this);
@@ -148,8 +150,19 @@ Template.workitems.events({
     },
     "click #setNewCampId": function(event, global){
         var newCampId = jQuery("#campaignId").val();
-
-        Tests.update(global.data._id,{$set:{testId: newCampId}});
+        if(newCampId){
+            youtrackReq("GET","issue/"+newCampId).fail(function(reason){
+                sAlert.error(JSON.parse(reason.responseText).value);
+            }).done(function(data){
+                console.log(data);
+                if(_.find(data.field,function(key){return key.name == "Type"}).value[0] == "New Campaign"){
+                    Tests.update(global.data._id,{$set:{testId: newCampId}});
+                }
+                else{
+                    sAlert.error("Ticket is not New Campaign. Only New Campaign tickets are allowed");
+                }
+            });
+        }
     },
     "click #createWorkItems": function(event, global){
         var workitems = summEstimate(global.data);
