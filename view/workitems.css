@@ -1,1 +1,23 @@
-/* CSS declarations go here */
+.centerPopup{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    margin-top: -150px;
+    margin-left: -200px;
+    width: 400px;
+    height: auto;
+    z-index: 100500;
+}
+.greyout{
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom: 0;
+    z-index: 100450;
+    display: none;
+    background-color: grey;
+    opacity: 0.8;
+}
