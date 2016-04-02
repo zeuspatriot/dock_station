@@ -7,7 +7,7 @@ Template.tests.helpers({
         if(this.fetch().length) clientName = this.fetch()[0].client;
         var userSector = "";
         if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        var tests = Tests.find({client: clientName, sector: userSector});
+        var tests = Tests.find({client: clientName, sector: userSector},{sort:{name:1}});
         return tests;
     },
     "clientName": function(){
@@ -15,18 +15,10 @@ Template.tests.helpers({
         if(this.fetch().length) clientName = this.fetch()[0].client;
         return clientName;
     }
-    //"clients": function(){
-    //    var tests = Tests.find({});
-    //    var result = {};
-    //    tests.forEach(function(test){
-    //        result[test.client] = false;
-    //    });
-    //    return Object.keys(result);
-    //}
 });
 Template.tests.events({
     "click #addNewTest": function(){
-        jQuery("li#addNewTestHolder").hide();
+        jQuery("#addNewTestHolder").hide();
         jQuery("#newTest").removeClass("hidden");
     },
     "click #addAnother": function(){
@@ -37,7 +29,8 @@ Template.tests.events({
         jQuery("#clientNameInput").val(event.target.text);
         jQuery("#clientNameHolder span#text").text(event.target.text);
     },
-    "click #createTest": function(){
+    "submit #createTest": function(event){
+        event.preventDefault();
         var userSector = "";
         if(Meteor.user()) userSector = Meteor.user().profile.sector;
         var clientName = jQuery("#clientNameInput").val();
@@ -46,5 +39,47 @@ Template.tests.events({
         Tests.insert({client:clientName, name:testName, sector: userSector}, function(err, res){
             Router.go("/workitems/"+res);
         })
+    },
+    "click .editTest": function(event){
+        console.log(event.target);
+        if(jQuery("form.editTestForm#"+this._id+" input").css("display")=="block"){
+            jQuery("form.editTestForm#"+this._id+" input").hide();
+            jQuery("form.editTestForm#"+this._id+" a").show();
+        }
+        else{
+            jQuery("form.editTestForm#"+this._id+" input").show();
+            jQuery("form.editTestForm#"+this._id+" a").hide();
+        }
+    },
+    "submit form.editTestForm": function(event){
+        event.preventDefault();
+        var val = event.target.testName.value;
+        Tests.update(this._id,{$set:{name:val}});
+        jQuery("form.editTestForm#"+this._id+" input").hide();
+        jQuery("form.editTestForm#"+this._id+" a").show();
+    },
+    "click .deleteTest": function(){
+        jQuery("#deleteTestConfirm").show();
+        jQuery(".greyout").show();
+        jQuery("#deleteTestConfirm span.testName").text(this.name);
+        jQuery("#deleteTestConfirm span.testName").attr("id",this._id);
+    },
+    "click #deleteTestConfirm #cancel":function(){
+        jQuery("#deleteTestConfirm").hide();
+        jQuery(".greyout").hide();
+    },
+    "click #deleteTestConfirm #ok": function(){
+        var testId = jQuery("#deleteTestConfirm span.testName").attr("id");
+        Tests.remove(testId);
+        jQuery("#deleteTestConfirm").hide();
+        jQuery(".greyout").hide();
+    },
+    "click .deleteClient": function(event, global){
+        console.log(global);
+        jQuery("#deleteTestConfirm").show();
+        jQuery(".greyout").show();
+        //jQuery("#deleteTestConfirm span.testName").text(this.name);
+        //jQuery("#deleteTestConfirm span.testName").attr("id",this._id);
     }
+
 });
