@@ -3,7 +3,10 @@
     <div class="container">
         <div class="row" id="clientTitle" >
             <div class="title" style="display: inline-block">
-                <h2>{{clientName}}</h2>
+                <form class="editClientForm">
+                    <h2 id="clientName">{{clientName}}</h2>
+                    <input type="text" id="editClientName" name="clientName" class="form-control" style="display: none" value="{{clientName}}">
+                </form>
             </div>
             <dib class="controls" style="vertical-align: super">
                 <button type="button" class="btn btn-default editClient">
@@ -48,16 +51,6 @@
             <div class="form-group row" id="addNewTestHolder"  style="padding-left: 20px; padding-right: 15px">
                 <button type="button" class="btn btn-default center-block" id="addNewTest" style="width: 100%" >Create new Test</button>
             </div>
-
-
-            <!--<ul id="clientsList">-->
-                    <!--{{#each tests}}-->
-                        <!--{{#if name}}-->
-                            <!--<li><a href="/workitems/{{_id}}">{{name}}</a></li>-->
-                        <!--{{/if}}-->
-                    <!--{{/each}}-->
-                <!--<li id="addNewTestHolder"><a href="#" id="addNewTest">Add new test</a></li>-->
-            <!--</ul>-->
             <div class="hidden" id="newTest">
                 <form id="createTest">
                     <div class="col-md-3">
@@ -71,7 +64,7 @@
         <div class="greyout"></div>
         <div class="col-md-3 centerPopup" id="deleteTestConfirm" style="display: none">
             <div class="panel panel-default center-block">
-                <div class="panel-heading" style="background-color: orangered; color: white;">Test delete is permanent</div>
+                <div class="panel-heading" style="background-color: orangered; color: white;">Delete action is permanent</div>
                 <div class="panel-body">
                     <span id="holder">Are you sure, that you want to delete "<span class="testName"></span>", action is permanent, and cannot be reverted</span>
                     <br>
