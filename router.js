@@ -23,7 +23,12 @@ Router.route("/clients/:client",function(){
     var userSector = "";
     if(Meteor.user()) userSector = Meteor.user().profile.sector;
     var clientTests = Tests.find({client:this.params.client,sector: userSector});
-    this.render('tests',{data:clientTests});
+    var result = {
+        clientName: this.params.client,
+        clientTests: clientTests
+    };
+
+    this.render('tests',{data:result});
 });
 
 Router.onBeforeAction(function () {
