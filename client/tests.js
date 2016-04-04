@@ -5,9 +5,6 @@ function refreshPopup (){
 
 Template.tests.helpers({
     "tests": function(){
-        //var userSector = "";
-        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        //return Tests.find({sector: userSector},{sort:{client:1,name:1}});
         var clientName = "";
         if(this.clientName) clientName = this.clientName;
         var userSector = "";
