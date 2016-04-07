@@ -2,7 +2,7 @@
     {{>navbarModule}}
     {{>sAlert}}
     <div class="container">
-        <h2>{{test.client}}: {{test.name}} {{#if test.testId}}<small><a target="_blank" href="https://maxymiser.myjetbrains.com/youtrack/issue/{{test.testId}}"><span class="glyphicon glyphicon-link"></span></a></small>{{/if}}</h2>
+        <h2><a href="/clients/{{test.client}}">{{test.client}}</a>: {{test.name}} {{#if test.testId}}<small><a target="_blank" href="https://maxymiser.myjetbrains.com/youtrack/issue/{{test.testId}}"><span class="glyphicon glyphicon-link"></span></a></small>{{/if}}</h2>
         <div class="row">
 
                 <div class="col-md-4" id="settings">
@@ -154,6 +154,20 @@
                                 </td>
                             </tr>
                         {{/each}}
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong>Total Estimate: {{estimateTotals.total}}h</strong>
+                                </td>
+                                <td>
+                                    <strong>{{estimateTotals.devTotal}}h</strong>
+                                </td>
+                                <td>
+                                    <strong>{{estimateTotals.qcTotal}}h</strong>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     {{#if isTa}}
