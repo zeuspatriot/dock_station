@@ -77,7 +77,6 @@ Template.loginPage.events({
         if(sector && role){
             youtrackReq("POST","user/login?login="+email+"&password="+password+"")
                 .always(function(data){
-                    console.log("in Done: ",data);
                     if(data.status == 200){
                         Accounts.createUser({username:email,password: password, profile:profile},function(err){
                             if(err) sAlert.error(err.message);
@@ -96,7 +95,7 @@ Template.loginPage.events({
         }
         //Bypass YouTrack AUTH for debugging purpose --> uncomment following code, and comment POST to YouTrack
         //Accounts.createUser({username:email,password: password, profile:profile},function(err){
-        //    if(err) alert(err.message);
+        //    if(err) sAlert.error(err.message);
         //    else{
         //        Router.go("/");
         //    }

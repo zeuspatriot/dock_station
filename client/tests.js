@@ -7,9 +7,9 @@ Template.tests.helpers({
     "tests": function(){
         var clientName = "";
         if(this.clientName) clientName = this.clientName;
-        var userSector = "";
-        if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        var tests = Tests.find({client: clientName, sector: userSector},{sort:{name:1}});
+        //var userSector = "";
+        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
+        var tests = Tests.find({client: clientName},{sort:{name:1}});
         return tests;
     },
     "clientName": function(){
@@ -37,13 +37,16 @@ Template.tests.events({
         if(Meteor.user()) userSector = Meteor.user().profile.sector;
         var clientName = jQuery("#clientNameInput").val();
         var testName = jQuery("#testNameInput").val();
-
-        Tests.insert({client:clientName, name:testName, sector: userSector}, function(err, res){
+        var test = {client:clientName, name:testName, sector: userSector};
+        Meteor.call("createTest",test, function(err,res){
             Router.go("/workitems/"+res);
-        })
+        });
+
+        //Tests.insert({client:clientName, name:testName, sector: userSector}, function(err, res){
+        //    Router.go("/workitems/"+res);
+        //})
     },
     "click .editTest": function(event){
-        console.log(event.target);
         if(jQuery("form.editTestForm#"+this._id+" input").css("display")=="block"){
             jQuery("form.editTestForm#"+this._id+" input").hide();
             jQuery("form.editTestForm#"+this._id+" a").show();
@@ -56,7 +59,8 @@ Template.tests.events({
     "submit form.editTestForm": function(event){
         event.preventDefault();
         var val = event.target.testName.value;
-        Tests.update(this._id,{$set:{name:val}});
+        Meteor.call("updateTestById",this._id,{name:val});
+        //Tests.update(this._id,{$set:{name:val}});
         jQuery("form.editTestForm#"+this._id+" input").hide();
         jQuery("form.editTestForm#"+this._id+" a").show();
     },
@@ -76,13 +80,15 @@ Template.tests.events({
         var testId = jQuery("#deleteTestConfirm span.testName").attr("id");
 
         if(jQuery("#deleteTestConfirm span.testName").attr("id") == clientName){
-            Tests.find({client:clientName}).forEach(function(test){
-                Tests.remove(test._id);
-            });
+            Meteor.call("deleteClientByName",clientName);
+            //Tests.find({client:clientName}).forEach(function(test){
+            //    Tests.remove(test._id);
+            //});
             Router.go("/clients/");
         }
         else {
-            Tests.remove(testId);
+            Meteor.call("deleteTestById",testId);
+            //Tests.remove(testId);
         }
 
         jQuery("#deleteTestConfirm").hide();
@@ -104,9 +110,10 @@ Template.tests.events({
         event.preventDefault();
         var clientName = global.data.clientName;
         var newClientName = event.target.clientName.value;
-        Tests.find({client: clientName}).forEach(function(test){
-            Tests.update(test._id,{$set:{client: newClientName}});
-        });
+        Meteor.call("updateClientByName",clientName,newClientName);
+        //Tests.find({client: clientName}).forEach(function(test){
+        //    Tests.update(test._id,{$set:{client: newClientName}});
+        //});
         Router.go("/clients/"+newClientName);
         jQuery("#clientName").show();
         jQuery("#editClientName").hide();

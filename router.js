@@ -36,6 +36,10 @@ Router.onBeforeAction(function () {
         this.redirect('/login');
     } else {
         // required by Iron to process the route handler
+        var userSector = "";
+        if(Meteor.user()) userSector = Meteor.user().profile.sector;
+        Meteor.subscribe("tests", userSector);
+        Meteor.subscribe('users',userSector);
         this.next();
     }
 }, {

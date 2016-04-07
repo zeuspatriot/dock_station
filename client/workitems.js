@@ -34,14 +34,14 @@ function youtrackReq (type, URL){
 
 Template.workitems.helpers({
     "developers": function(){
-        var userSector = "";
-        if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        return Meteor.users.find({"profile.role":'dev',"profile.sector": userSector});
+        //var userSector = "";
+        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
+        return Meteor.users.find({"profile.role":'dev'});
     },
     "qcs": function(){
-        var userSector = "";
-        if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        return Meteor.users.find({"profile.role":'qc',"profile.sector": userSector});
+        //var userSector = "";
+        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
+        return Meteor.users.find({"profile.role":'qc'});
     },
     "test": function(){
         return this;
@@ -77,7 +77,6 @@ Template.workitems.helpers({
     "estimates": function(){
         var estimates = this.estimate;
         if(estimates) _.extend(_.last(estimates), {"active": true});
-        console.log(estimates);
         return estimates.reverse();
     },
     "presetItems": function(){
@@ -134,19 +133,25 @@ Template.workitems.events({
             workitems.push(item);
 
         });
+        var packedData = {
+            workitems : workitems,
+            comment : comment
+        };
         jQuery("#estimateHistory a").removeClass("active");
         jQuery("table#workitemsTable tbody tr.added").remove();
-        Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment, updater: Meteor.user().profile.name,date: new Date()}}});
+        Meteor.call("formWorkItems",global.data._id,packedData);
+        //Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment, updater: Meteor.user().profile.name,date: new Date()}}});
         jQuery("#estimateHistory a:eq(0)").addClass("active")
     },
     "click li.devName": function(event, global){
-        console.log(this);
         jQuery("div#settings input#devName").val(this.profile.email);
-        Tests.update(global.data._id,{$set:{dev:this}});
+        Meteor.call("updateTestById",global.data._id,{dev:this});
+        //Tests.update(global.data._id,{$set:{dev:this}});
     },
     "click li.qcName": function(event,global){
         jQuery("div#settings input#qcName").val(this.profile.email);
-        Tests.update(global.data._id,{$set:{qc:this}});
+        Meteor.call("updateTestById",global.data._id,{qc:this});
+        //Tests.update(global.data._id,{$set:{qc:this}});
     },
     "click #setNewCampId": function(event, global){
         var newCampId = jQuery("#campaignId").val();
@@ -154,9 +159,9 @@ Template.workitems.events({
             youtrackReq("GET","issue/"+newCampId).fail(function(reason){
                 sAlert.error(JSON.parse(reason.responseText).value);
             }).done(function(data){
-                console.log(data);
                 if(_.find(data.field,function(key){return key.name == "Type"}).value[0] == "New Campaign"){
-                    Tests.update(global.data._id,{$set:{testId: newCampId}});
+                    Meteor.call("updateTestById",global.data._id,{testId: newCampId});
+                    //Tests.update(global.data._id,{$set:{testId: newCampId}});
                 }
                 else{
                     sAlert.error("Ticket is not New Campaign. Only New Campaign tickets are allowed");
@@ -191,7 +196,6 @@ Template.workitems.events({
         jQuery("#postsToYoutrackProgress span#counter").text(counter);
         jQuery("#postsToYoutrackProgress span#generalCount").text(counter);
         Object.keys(workitems).sort().forEach(function(key){
-            console.log(key);
             var item = workitems[key];
             var devEst = item.devEst;
             var qcEst = item.qcEst;
@@ -202,11 +206,14 @@ Template.workitems.events({
                     return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+sort+by%3A+created+")
                 }).then(function(data){
                     createdItemId = data.issue[0].id;
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" Work Item State Backlog subtask of "+mainTicketId+" ")
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" ");
+                })
+                .then(function(data){
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" ");
                 }).then(function(data){
                     return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
                 }).then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ")
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ");
                 }).fail(function(reason){
                     ajaxErrorDisplay(reason);
                 }).done(function(){
@@ -222,7 +229,10 @@ Template.workitems.events({
                 })
                 .then(function(data){
                     createdItemId = data.issue[0].id;
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" Work Item State Backlog subtask of "+mainTicketId+" ");
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" ");
+                })
+                .then(function(data){
+                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" ");
                 })
                 .then(function(data){
                     return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
@@ -237,7 +247,7 @@ Template.workitems.events({
                     jQuery("#postsToYoutrackProgress span#counter").text(counter);
                     if(!counter) {
                         jQuery(".panel-body span#holder").text("Yaay! Everything went smoothly! Youtrack Gods treated you well.");
-                        jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)")
+                        jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)");
                         jQuery("#postsToYoutrackProgress .panel-heading").text("Workitems successfully created");
                     }
                 });
@@ -249,7 +259,6 @@ Template.workitems.events({
         global.data.estimate.push(activeEst[0]);
         var counter = Session.get("eventTrigger") + 1 || 0;
         Session.set("eventTrigger",counter);
-        console.log(event.target);
         var target = jQuery(event.target).closest("a").length
             ? jQuery(event.target).closest("a")
             : jQuery(event.target);
