@@ -1,20 +1,23 @@
 function summEstimate(test){
-    var lastEstimate = test.estimate[test.estimate.length-1].items;
     var result = {};
-    lastEstimate.forEach(function(item){
-        if(result[item.group]){
-            result[item.group].name += ", " + item.name;
-            result[item.group].devEst += item.devEst;
-            result[item.group].qcEst += item.qcEst;
-        }
-        else{
-            result[item.group] = {
-                name: item.name,
-                devEst: item.devEst,
-                qcEst: item.qcEst
-            };
-        }
-    });
+    if(test.estimate){
+        var lastEstimate = test.estimate[test.estimate.length-1].items;
+        lastEstimate.forEach(function(item){
+            if(result[item.group]){
+                result[item.group].name += ", " + item.name;
+                result[item.group].devEst += item.devEst;
+                result[item.group].qcEst += item.qcEst;
+            }
+            else{
+                result[item.group] = {
+                    name: item.name,
+                    devEst: item.devEst,
+                    qcEst: item.qcEst
+                };
+            }
+        });
+    }
+
     return result
 }
 function youtrackReq (type, URL){
@@ -103,6 +106,26 @@ Template.workitems.helpers({
             }
         ];
         return items;
+    },
+    "estimateTotals": function(){
+        Session.get("eventTrigger");
+        var estimates = summEstimate(this);
+        var result = {
+            devTotal: 0,
+            qcTotal: 0,
+            total: 0
+        };
+        console.log(estimates);
+        if(estimates){
+            Object.keys(estimates).forEach(function(key){
+                var workitem = estimates[key];
+                result["devTotal"] ? result["devTotal"] += workitem.devEst : result["devTotal"] = workitem.devEst;
+                result["qcTotal"] ? result["qcTotal"] += workitem.qcEst : result["qcTotal"] = workitem.qcEst;
+            });
+            result["total"] = (result.devTotal + result.qcTotal);
+        }
+
+        return result;
     }
 });
 
@@ -185,6 +208,7 @@ Template.workitems.events({
         var promise;
         var counter = Object.keys(workitems).length;
         function ajaxErrorDisplay(reason){
+
             jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","orangered");
             jQuery("#postsToYoutrackProgress .panel-heading").css("color","white");
             jQuery("#postsToYoutrackProgress .panel-heading").text("Oh snap! Something went wrong!");
@@ -195,6 +219,7 @@ Template.workitems.events({
         jQuery(".greyout").show();
         jQuery("#postsToYoutrackProgress span#counter").text(counter);
         jQuery("#postsToYoutrackProgress span#generalCount").text(counter);
+
         Object.keys(workitems).sort().forEach(function(key){
             var item = workitems[key];
             var devEst = item.devEst;

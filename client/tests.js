@@ -47,7 +47,6 @@ Template.tests.events({
         //})
     },
     "click .editTest": function(event){
-        console.log(event.target);
         if(jQuery("form.editTestForm#"+this._id+" input").css("display")=="block"){
             jQuery("form.editTestForm#"+this._id+" input").hide();
             jQuery("form.editTestForm#"+this._id+" a").show();

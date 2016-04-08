@@ -6,7 +6,7 @@ Meteor.methods({
         Tests.update(id,{$set:data});
     },
     "createTest": function(test){
-        var newId="init";
+        var newId;
         newId =  Tests.insert(test, function(err, res){
             return res;
         });
@@ -24,8 +24,5 @@ Meteor.methods({
         Tests.find({client: oldClientName}).forEach(function(test){
             Tests.update(test._id,{$set:{client: newClientName}});
         });
-    },
-    "createNewUser": function(userObj){
-       return Accounts.createUser(userObj);
     }
 });

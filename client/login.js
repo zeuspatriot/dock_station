@@ -78,12 +78,6 @@ Template.loginPage.events({
             youtrackReq("POST","user/login?login="+email+"&password="+password+"")
                 .always(function(data){
                     if(data.status == 200){
-                        //Meteor.call("createNewUser",{username:email,password: password, profile:profile}, function(err, res){
-                        //    if(err) sAlert.error(err.message);
-                        //    else{
-                        //        Router.go("/");
-                        //    }
-                        //});
                         Accounts.createUser({username:email,password: password, profile:profile},function(err){
                             if(err) sAlert.error(err.message);
                             else{
@@ -100,8 +94,7 @@ Template.loginPage.events({
                 });
         }
         //Bypass YouTrack AUTH for debugging purpose --> uncomment following code, and comment POST to YouTrack
-        //Meteor.call("createNewUser",{username:email,password: password, profile:profile}, function(err, res){
-        //    console.log(err);
+        //Accounts.createUser({username:email,password: password, profile:profile},function(err){
         //    if(err) sAlert.error(err.message);
         //    else{
         //        Router.go("/");
