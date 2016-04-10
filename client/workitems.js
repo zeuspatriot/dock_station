@@ -1,23 +1,24 @@
 function summEstimate(test){
     var result = {};
-    if(test.estimate){
-        var lastEstimate = test.estimate[test.estimate.length-1].items;
-        lastEstimate.forEach(function(item){
+    if(test.length){
+        var lastEstimate = test;
+        lastEstimate.forEach(function(item,ind){
             if(result[item.group]){
                 result[item.group].name += ", " + item.name;
                 result[item.group].devEst += item.devEst;
                 result[item.group].qcEst += item.qcEst;
+                result[item.group].owner = item.owner;
             }
             else{
                 result[item.group] = {
                     name: item.name,
                     devEst: item.devEst,
-                    qcEst: item.qcEst
+                    qcEst: item.qcEst,
+                    owner: item.owner
                 };
             }
         });
     }
-
     return result
 }
 function youtrackReq (type, URL){
@@ -37,13 +38,9 @@ function youtrackReq (type, URL){
 
 Template.workitems.helpers({
     "developers": function(){
-        //var userSector = "";
-        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
         return Meteor.users.find({"profile.role":'dev'});
     },
     "qcs": function(){
-        //var userSector = "";
-        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
         return Meteor.users.find({"profile.role":'qc'});
     },
     "test": function(){
@@ -61,7 +58,7 @@ Template.workitems.helpers({
     "groupedLastWorkItems": function(){
         Session.get("eventTrigger");
         if(this.estimate){
-            var result = summEstimate(this);
+            var result = summEstimate(this.estimate[this.estimate.length-1].items);
             return _.map(result, function(val,key){return {group: key, value: val}});
         }
         else{
@@ -74,35 +71,35 @@ Template.workitems.helpers({
         return isTa;
     },
     "formatDate": function(date){
-        var formatedDate = date.getDay() +"-"+ date.getMonth() +"-"+ date.getFullYear() +": "+date.getHours()+":"+date.getMinutes();
+        var formatedDate = date.toLocaleDateString();
         return formatedDate;
     },
     "estimates": function(){
-        var estimates = this.estimate;
+        var estimates = this.estimate.concat();
         if(estimates) _.extend(_.last(estimates), {"active": true});
         return estimates.reverse();
     },
     "presetItems": function(){
         var items = [
             {
-                name: "",
+                name: "Publish Instruction",
                 group: 1
             },
             {
-                name: "Publish Instruction",
-                group: 55
-            },
-            {
                 name: "GIT Merge request",
-                group: 56
+                group: 2
             },
             {
                 name: "Qa Report",
-                group: 57
+                group: 3
             },
             {
                 name: "System testing",
-                group: 58
+                group: 4
+            },
+            {
+                name: "",
+                group: 5
             }
         ];
         return items;
@@ -115,7 +112,6 @@ Template.workitems.helpers({
             qcTotal: 0,
             total: 0
         };
-        console.log(estimates);
         if(estimates){
             Object.keys(estimates).forEach(function(key){
                 var workitem = estimates[key];
@@ -131,7 +127,7 @@ Template.workitems.helpers({
 
 Template.workitems.events({
     'click #addNewItem': function(){
-        var row = '<tr class="added"><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
+        var row = '<tr class="added"><td><div class="form-group"><div class="dropdown"><button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="text">{{#if owner}}{{owner}}{{else}}None{{/if}}</span><span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li class="owner"><a href="#">None</a></li><li class="owner"><a href="#">Dev</a></li><li class="owner"><a href="#">Qc</a></li></ul><input type="text" id="currOwner" class="form-control hidden" value="{{#if owner}}{{owner}}{{else}}None{{/if}}"></div></div></td><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
         jQuery("table#workitemsTable tbody").append(row);
     },
     'click a.remove': function(event){
@@ -147,11 +143,13 @@ Template.workitems.events({
             var devEst = jQuery(rows[ind]).find("#devEst").val();
             var qcEst = jQuery(rows[ind]).find("#qcEst").val();
             var group = jQuery(rows[ind]).find("#group").val();
+            var owner = jQuery(rows[ind]).find("#currOwner").val();
             var item = {
                 name: name,
                 devEst: parseFloat(devEst),
                 qcEst: parseFloat(qcEst),
-                group: parseInt(group)
+                group: parseInt(group),
+                owner: owner
             };
             workitems.push(item);
 
@@ -164,7 +162,7 @@ Template.workitems.events({
         jQuery("table#workitemsTable tbody tr.added").remove();
         Meteor.call("formWorkItems",global.data._id,packedData);
         //Tests.update(global.data._id,{$addToSet:{estimate:{items:workitems,comment: comment, updater: Meteor.user().profile.name,date: new Date()}}});
-        jQuery("#estimateHistory a:eq(0)").addClass("active")
+        jQuery("#estimateHistory a:eq(0)").addClass("active");
     },
     "click li.devName": function(event, global){
         jQuery("div#settings input#devName").val(this.profile.email);
@@ -193,7 +191,7 @@ Template.workitems.events({
         }
     },
     "click #createWorkItems": function(event, global){
-        var workitems = summEstimate(global.data);
+        var workitems = summEstimate(global.data.estimate[global.data.estimate.length-1].items);
         var createdItemId;
         var dev,qc;
         if(global.data.dev) dev = global.data.dev.profile;
@@ -220,12 +218,18 @@ Template.workitems.events({
         jQuery("#postsToYoutrackProgress span#counter").text(counter);
         jQuery("#postsToYoutrackProgress span#generalCount").text(counter);
 
-        Object.keys(workitems).sort().forEach(function(key){
+        Object.keys(workitems).sort().forEach(function(key, ind){
             var item = workitems[key];
             var devEst = item.devEst;
             var qcEst = item.qcEst;
             var estimation = (item.devEst+item.qcEst);
-            if(key === "1"){
+            var ref = {
+                Dev: dev.email,
+                Qc: qc.email,
+                None: "Undefined"
+            };
+            var owner = ref[item.owner];
+            if(ind === 0){
                 promise = youtrackReq("POST","issue/"+mainTicketId+"/execute?command=clone");
                 promise = promise.then(function(data){
                     return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+sort+by%3A+created+")
@@ -239,6 +243,8 @@ Template.workitems.events({
                     return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
                 }).then(function(data){
                     return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ");
+                }).then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Current Owner "+owner+" ");
                 }).fail(function(reason){
                     ajaxErrorDisplay(reason);
                 }).done(function(){
@@ -264,8 +270,9 @@ Template.workitems.events({
                 })
                 .then(function(data){
                     return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ")
-                })
-                .fail(function(reason){
+                }).then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Current Owner "+owner+" ");
+                }).fail(function(reason){
                     ajaxErrorDisplay(reason);
                 }).done(function(){
                     counter -= 1;
@@ -295,6 +302,13 @@ Template.workitems.events({
         jQuery(".greyout").hide();
         jQuery("#postsToYoutrackProgress").text("");
         jQuery("#postsToYoutrackProgress").append('<div class="panel panel-default center-block"><div class="panel-heading">Workitems are in a process of creation</div><div class="panel-body"><span id="holder">You have <span id="counter">n</span> out of <span id="generalCount"></span> workitems left to create.</span><button class="btn btn-primary center-block" id="ok" style="margin-top: 10px">Ok</button></div></div>')
+    },
+    "click table div.dropdown li.owner": function(event){
+        var role = jQuery(event.target).text();
+        jQuery(event.target).parent().parent().parent().find("input#currOwner").val(role);
+        jQuery(event.target).parent().parent().parent().find("span#text").text(role);
+        this.owner = 123;
+        Session.set("eventTrigger");
     }
 
 });

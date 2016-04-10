@@ -19,7 +19,7 @@ Template.clientList.events({
         var clientName = jQuery("input#newClientName").val();
         var userSector = "";
         if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        var test = {client:clientName, sector:userSector}
+        var test = {client:clientName, sector:userSector};
         Meteor.call("createTest",test);
         //Tests.insert({client:clientName, sector:userSector});
         jQuery("#createClient").show();

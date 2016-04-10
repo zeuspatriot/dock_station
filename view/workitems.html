@@ -58,6 +58,7 @@
                     <table class="table table-striped" id="workitemsTable">
                         <thead>
                             <tr>
+                                <th>Current owner</th>
                                 <th>Item name</th>
                                 <th>Dev est</th>
                                 <th>Qc est</th>
@@ -68,6 +69,22 @@
                         <tbody>
                             {{#each currentWorkitems}}
                                 <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <span id="text" class="text">{{owner}}</span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li class="owner"><a href="#">None</a></li>
+                                                    <li class="owner"><a href="#">Dev</a></li>
+                                                    <li class="owner"><a href="#">Qc</a></li>
+                                                </ul>
+                                                <input type="text" id="currOwner" class="form-control hidden" value="{{owner}}">
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>
                                         <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="{{name}}">
                                     </td>
@@ -88,6 +105,22 @@
                             {{#unless currentWorkitems}}
                                 {{#each presetItems}}
                                     <tr id="initial" class="added">
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        <span id="text">{{#if owner}}{{owner}}{{else}}None{{/if}}</span>
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li class="owner"><a href="#">None</a></li>
+                                                        <li class="owner"><a href="#">Dev</a></li>
+                                                        <li class="owner"><a href="#">Qc</a></li>
+                                                    </ul>
+                                                    <input type="text" id="currOwner" class="form-control hidden" value="{{#if owner}}{{owner}}{{else}}None{{/if}}">
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="{{name}}">
                                         </td>
