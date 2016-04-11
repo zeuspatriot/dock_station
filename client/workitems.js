@@ -21,7 +21,7 @@ function summEstimate(test){
     }
     return result
 }
-function youtrackReq (type, URL){
+function youtrackReq (type, URL, data){
     var youtrackBaseUrl = "https://maxymiser.myjetbrains.com/youtrack/rest/";
     var currUser = Meteor.user();
     var request = {
@@ -33,6 +33,7 @@ function youtrackReq (type, URL){
             "Authorization": "Basic " + btoa(currUser.profile.email+":"+currUser.profile.pass)
         }
     };
+    if(data) request.data = data;
     return jQuery.ajax(request);
 }
 
@@ -228,6 +229,7 @@ Template.workitems.events({
         jQuery(".greyout").show();
         jQuery("#postsToYoutrackProgress span#counter").text(counter);
         jQuery("#postsToYoutrackProgress span#generalCount").text(counter);
+        var mainTicketData = {};
 
         Object.keys(workitems).sort().forEach(function(key, ind){
             var item = workitems[key];
@@ -239,61 +241,156 @@ Template.workitems.events({
                 Qc: qc.email,
                 None: "Undefined"
             };
+            var newItemData = {
+                project: "ET",
+                summary: "#ignore_required#" + item.name,
+                type: "Work Item",
+                field: {
+                    'Client Account': {
+                        value: "Maxymiser"
+                    },
+                    'Subtask Of':mainTicketId
+                }
+            };
             var owner = ref[item.owner];
             if(ind === 0){
-                promise = youtrackReq("POST","issue/"+mainTicketId+"/execute?command=clone");
-                promise = promise.then(function(data){
-                    return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+sort+by%3A+created+")
-                }).then(function(data){
-                    createdItemId = data.issue[0].id;
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" ");
+
+                promise = youtrackReq("GET", "issue/"+mainTicketId);
+                promise = promise.then(function(data) {
+
+                    mainTicketData['Client Account'] = _.find(data.field,function(field){
+                        return field.name == 'Client Account'
+                    }).value[0];
+                    mainTicketData['OA Name'] = _.find(data.field,function(field){
+                        return field.name == 'OA Name'
+                    }).value[0];
+                    mainTicketData['Sector'] = _.find(data.field,function(field){
+                        return field.name == 'Sector'
+                    }).value[0];
+
+                    return youtrackReq("POST", "issue", newItemData);
                 })
-                .then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" ");
-                }).then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
-                }).then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ");
-                }).then(function(data){
+                    .then(function(data){
+                        createdItemId = data.id;
+                        var commandData = {
+                            command: "Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" "
+                        };
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute",commandData);
+                    })
+                    .then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Client Account "+ mainTicketData['Client Account'] + " OA Name "+ mainTicketData['OA Name']);
+                    })
+                    .then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" Global State Backlog");
+                    }).then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
+                    }).then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ");
+                    }).then(function(data){
                         return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Current Owner "+owner+" ");
-                }).fail(function(reason){
-                    ajaxErrorDisplay(reason);
-                }).done(function(){
-                    counter -= 1;
-                    jQuery("#postsToYoutrackProgress span#counter").text(counter);
-                });
+                    }).fail(function(reason){
+                        ajaxErrorDisplay(reason);
+                    }).done(function(){
+                        counter -= 1;
+                        jQuery("#postsToYoutrackProgress span#counter").text(counter);
+                        if(!counter) {
+                            jQuery(".panel-body span#holder").text("Yaay! Everything went smoothly! Youtrack Gods treated you well.");
+                            jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)");
+                            jQuery("#postsToYoutrackProgress .panel-heading").text("Workitems successfully created");
+                        }
+                    });
+
+
+                //promise = youtrackReq("POST","issue/"+mainTicketId+"/execute?command=clone");
+                //promise = promise.then(function(data){
+                //    return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+sort+by%3A+created+")
+                //}).then(function(data){
+                //    createdItemId = data.issue[0].id;
+                //    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" ");
+                //})
+                //.then(function(data){
+                //    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" ");
+                //}).then(function(data){
+                //    return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
+                //}).then(function(data){
+                //    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ");
+                //}).then(function(data){
+                //        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Current Owner "+owner+" ");
+                //}).fail(function(reason){
+                //    ajaxErrorDisplay(reason);
+                //}).done(function(){
+                //    counter -= 1;
+                //    jQuery("#postsToYoutrackProgress span#counter").text(counter);
+                //    if(!counter) {
+                //        jQuery(".panel-body span#holder").text("Yaay! Everything went smoothly! Youtrack Gods treated you well.");
+                //        jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)");
+                //        jQuery("#postsToYoutrackProgress .panel-heading").text("Workitems successfully created");
+                //    }
+                //});
             }
             else{
-                promise = promise.then(function(data){
-                    return youtrackReq("POST","issue/"+mainTicketId+"/execute?command=clone")
-                }).then(function(data) {
-                    return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+Type%3A+%7BNew+Campaign%7D+");
-                })
-                .then(function(data){
-                    createdItemId = data.issue[0].id;
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" ");
-                })
-                .then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" ");
-                })
-                .then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
-                })
-                .then(function(data){
-                    return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ")
-                }).then(function(data){
+                promise = promise.then(function(data) {
+                        return youtrackReq("POST", "issue", newItemData);
+                    })
+                    .then(function(data){
+                        createdItemId = data.id;
+                        var commandData = {
+                            command: "Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" "
+                        };
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute",commandData);
+                    })
+                    .then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Client Account "+ mainTicketData['Client Account'] + " OA Name "+ mainTicketData['OA Name']);
+                    })
+                    .then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" Global State Backlog");
+                    }).then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
+                    }).then(function(data){
+                        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ");
+                    }).then(function(data){
                         return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Current Owner "+owner+" ");
-                }).fail(function(reason){
-                    ajaxErrorDisplay(reason);
-                }).done(function(){
-                    counter -= 1;
-                    jQuery("#postsToYoutrackProgress span#counter").text(counter);
-                    if(!counter) {
-                        jQuery(".panel-body span#holder").text("Yaay! Everything went smoothly! Youtrack Gods treated you well.");
-                        jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)");
-                        jQuery("#postsToYoutrackProgress .panel-heading").text("Workitems successfully created");
-                    }
-                });
+                    }).fail(function(reason){
+                        ajaxErrorDisplay(reason);
+                    }).done(function(){
+                        counter -= 1;
+                        jQuery("#postsToYoutrackProgress span#counter").text(counter);
+                        if(!counter) {
+                            jQuery(".panel-body span#holder").text("Yaay! Everything went smoothly! Youtrack Gods treated you well.");
+                            jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)");
+                            jQuery("#postsToYoutrackProgress .panel-heading").text("Workitems successfully created");
+                        }
+                    });
+            //    promise = promise.then(function(data){
+            //        return youtrackReq("POST","issue/"+mainTicketId+"/execute?command=clone")
+            //    }).then(function(data) {
+            //        return youtrackReq("GET", "issue/?filter=created%3A+Today+created+by%3A+me+Type%3A+%7BNew+Campaign%7D+");
+            //    })
+            //    .then(function(data){
+            //        createdItemId = data.issue[0].id;
+            //        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Type Work Item Assignee "+dev.email+" add Assignee "+qc.email+" Dev Estimate "+devEst+" QC Estimate "+qcEst+" Estimation "+estimation+" ");
+            //    })
+            //    .then(function(data){
+            //        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Work Item State Backlog subtask of "+mainTicketId+" ");
+            //    })
+            //    .then(function(data){
+            //        return youtrackReq("POST","issue/"+createdItemId+"?summary="+item.name+"&description="+item.name+"");
+            //    })
+            //    .then(function(data){
+            //        return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Developer "+dev.email+" QC Member "+qc.email+" ")
+            //    }).then(function(data){
+            //            return youtrackReq("POST","issue/"+createdItemId+"/execute?command=Current Owner "+owner+" ");
+            //    }).fail(function(reason){
+            //        ajaxErrorDisplay(reason);
+            //    }).done(function(){
+            //        counter -= 1;
+            //        jQuery("#postsToYoutrackProgress span#counter").text(counter);
+            //        if(!counter) {
+            //            jQuery(".panel-body span#holder").text("Yaay! Everything went smoothly! Youtrack Gods treated you well.");
+            //            jQuery("#postsToYoutrackProgress .panel-heading").css("background-color","rgb(168, 224, 51)");
+            //            jQuery("#postsToYoutrackProgress .panel-heading").text("Workitems successfully created");
+            //        }
+            //    });
             }
         });
     },
@@ -315,7 +412,6 @@ Template.workitems.events({
         jQuery("#postsToYoutrackProgress").append('<div class="panel panel-default center-block"><div class="panel-heading">Workitems are in a process of creation</div><div class="panel-body"><span id="holder">You have <span id="counter">n</span> out of <span id="generalCount"></span> workitems left to create.</span><button class="btn btn-primary center-block" id="ok" style="margin-top: 10px">Ok</button></div></div>')
     },
     "click table div.dropdown li.owner": function(event){
-        debugger;
         var role = jQuery(event.target).text();
         jQuery(event.target).parent().parent().parent().find("input#currOwner").val(role);
         if(this.owner){
