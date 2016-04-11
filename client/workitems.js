@@ -80,29 +80,40 @@ Template.workitems.helpers({
         return estimates.reverse();
     },
     "presetItems": function(){
-        var items = [
-            {
-                name: "Publish Instruction",
-                group: 1
-            },
-            {
-                name: "GIT Merge request",
-                group: 2
-            },
-            {
-                name: "Qa Report",
-                group: 3
-            },
-            {
-                name: "System testing",
-                group: 4
-            },
-            {
-                name: "",
-                group: 5
-            }
-        ];
-        return items;
+        Session.get("eventTrigger");
+        if(window.items){
+            return window.items;
+        }
+        else{
+            window.items = [
+                {
+                    name: "Publish Instruction",
+                    group: 1,
+                    owner: "None"
+                },
+                {
+                    name: "GIT Merge request",
+                    group: 2,
+                    owner: "None"
+                },
+                {
+                    name: "Qa Report",
+                    group: 3,
+                    owner: "None"
+                },
+                {
+                    name: "System testing",
+                    group: 4,
+                    owner: "None"
+                },
+                {
+                    name: "",
+                    group: 5,
+                    owner: "None"
+                }
+            ];
+        }
+        return window.items;
     },
     "estimateTotals": function(){
         Session.get("eventTrigger");
@@ -127,7 +138,7 @@ Template.workitems.helpers({
 
 Template.workitems.events({
     'click #addNewItem': function(){
-        var row = '<tr class="added"><td><div class="form-group"><div class="dropdown"><button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="text">{{#if owner}}{{owner}}{{else}}None{{/if}}</span><span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li class="owner"><a href="#">None</a></li><li class="owner"><a href="#">Dev</a></li><li class="owner"><a href="#">Qc</a></li></ul><input type="text" id="currOwner" class="form-control hidden" value="{{#if owner}}{{owner}}{{else}}None{{/if}}"></div></div></td><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
+        var row = '<tr class="added"><td><div class="form-group"><div class="dropdown"><button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="text">None</span><span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li class="owner"><a href="#">None</a></li><li class="owner"><a href="#">Dev</a></li><li class="owner"><a href="#">Qc</a></li></ul><input type="text" id="currOwner" class="form-control hidden" value="None"></div></div></td><td><input type="text" required id="workitemName" name="name" class="form-control" title="Workitme Name"></td><td><input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0"></td><td><input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0"></td><td><input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id"></td><td><a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
         jQuery("table#workitemsTable tbody").append(row);
     },
     'click a.remove': function(event){
@@ -304,11 +315,18 @@ Template.workitems.events({
         jQuery("#postsToYoutrackProgress").append('<div class="panel panel-default center-block"><div class="panel-heading">Workitems are in a process of creation</div><div class="panel-body"><span id="holder">You have <span id="counter">n</span> out of <span id="generalCount"></span> workitems left to create.</span><button class="btn btn-primary center-block" id="ok" style="margin-top: 10px">Ok</button></div></div>')
     },
     "click table div.dropdown li.owner": function(event){
+        debugger;
         var role = jQuery(event.target).text();
         jQuery(event.target).parent().parent().parent().find("input#currOwner").val(role);
-        jQuery(event.target).parent().parent().parent().find("span#text").text(role);
-        this.owner = 123;
-        Session.set("eventTrigger");
+        if(this.owner){
+            this.owner = role;
+        }
+        else {
+            jQuery(event.target).parent().parent().parent().find("span#text").text(role);
+        }
+
+        var counter = Session.get("eventTrigger") + 1 || 0;
+        Session.set("eventTrigger",counter);
     }
 
 });
