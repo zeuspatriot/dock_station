@@ -117,7 +117,7 @@ Template.workitems.helpers({
     },
     "estimateTotals": function(){
         Session.get("eventTrigger");
-        var estimates = summEstimate(this);
+        var estimates = summEstimate(this.estimate[this.estimate.length-1].items);
         var result = {
             devTotal: 0,
             qcTotal: 0,
