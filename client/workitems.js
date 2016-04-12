@@ -267,7 +267,8 @@ Template.workitems.events({
                     mainTicketData['Sector'] = _.find(data.field,function(field){
                         return field.name == 'Sector'
                     }).value[0];
-                    newItemData.project = data.id.split('-')[0];
+                    mainTicketData['project'] = data.id.split('-')[0];
+                    newItemData.project = mainTicketData.project;
 
                     return youtrackReq("POST", "issue", newItemData);
                 })
@@ -331,6 +332,7 @@ Template.workitems.events({
             }
             else{
                 promise = promise.then(function(data) {
+                        newItemData.project = mainTicketData.project;
                         return youtrackReq("POST", "issue", newItemData);
                     })
                     .then(function(data){
