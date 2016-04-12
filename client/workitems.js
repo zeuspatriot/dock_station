@@ -242,7 +242,7 @@ Template.workitems.events({
                 None: "Undefined"
             };
             var newItemData = {
-                project: "ET",
+                project: "",
                 summary: "#ignore_required#" + item.name,
                 type: "Work Item",
                 field: {
@@ -267,6 +267,7 @@ Template.workitems.events({
                     mainTicketData['Sector'] = _.find(data.field,function(field){
                         return field.name == 'Sector'
                     }).value[0];
+                    newItemData.project = data.id.split('-')[0];
 
                     return youtrackReq("POST", "issue", newItemData);
                 })
