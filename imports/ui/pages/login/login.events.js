@@ -1,55 +1,7 @@
-function youtrackReq (type, URL, data, headers){
-    var youtrackBaseUrl = "https://maxymiser.myjetbrains.com/youtrack/rest/";
-    var request = {
-        type: type,
-        withCredentials: true,
-        url: youtrackBaseUrl + URL,
-        headers: {
-            'Accept':'application/json',
-            "Authorization": "Basic " + btoa("dmitriy.gorbachev@maxymiser.com:Salosila123")
-        },
-        data: data
-    };
-    return jQuery.ajax(request);
-}
-Meteor.startup(function () {
+import {youtrackApi} from '/imports/api/youtrack';
+import {Meteor} from 'meteor/meteor';
+import {sAlert} from 'meteor/juliancwirko:s-alert';
 
-    sAlert.config({
-        effect: 'bouncyflip',
-        position: 'top-right',
-        timeout: 3000,
-        html: false,
-        onRouteClose: true,
-        stack: true,
-        // or you can pass an object:
-        // stack: {
-        //     spacing: 10 // in px
-        //     limit: 3 // when fourth alert appears all previous ones are cleared
-        // }
-        offset: 0, // in px - will be added to first alert (bottom or top - depends of the position in config)
-        beep: false,
-        // examples:
-        // beep: '/beep.mp3'  // or you can pass an object:
-        // beep: {
-        //     info: '/beep-info.mp3',
-        //     error: '/beep-error.mp3',
-        //     success: '/beep-success.mp3',
-        //     warning: '/beep-warning.mp3'
-        // }
-        onClose: _.noop //
-        // examples:
-        // onClose: function() {
-        //     /* Code here will be executed once the alert closes. */
-        // }
-    });
-
-});
-
-Template.loginPage.helpers({
-    "createAccount":function(){
-        return Session.get("isCreateAccount");
-    }
-});
 Template.loginPage.events({
     "click div#jobCode ul li a" : function(event){
         jQuery("#newUserRole").val(event.target.text.toLocaleLowerCase());
@@ -75,7 +27,8 @@ Template.loginPage.events({
             sector: sector
         };
         if(sector && role){
-            youtrackReq("POST","user/login?login="+email+"&password="+password+"")
+            //youtrackReq("POST","user/login?login="+email+"&password="+password+"")
+            youtrackApi.call("POST","user/login?login="+email+"&password="+password+"",Meteor.user())
                 .always(function(data){
                     if(data.status == 200){
                         Accounts.createUser({username:email,password: password, profile:profile},function(err){
