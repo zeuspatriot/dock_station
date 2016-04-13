@@ -26,13 +26,18 @@
                             <div class="form-group">
                                 <div class="dropdown" id="jobCode">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span id="positionText">Role</span>
+                                        <span id="positionText">
+                                            {{#with userProfile}}
+                                                {{#if role}}{{role}}
+                                                {{else}}Role
+                                                {{/if}}
+                                            {{/with}}</span>
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="#">Dev</a></li>
-                                        <li><a href="#">Qc</a></li>
-                                        <li><a href="#">Ta</a></li>
+                                        {{#each roles}}
+                                            <li><a href="#">{{this}}</a></li>
+                                        {{/each}}
                                     </ul>
                                     <p class="text-danger">Please select appropriate Job-title</p>
                                 </div>
@@ -41,19 +46,18 @@
                             <div class="form-group">
                                 <div class="dropdown" id="sector">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span id="sectorText">Sector</span>
+                                        <span id="sectorText">
+                                            {{#with userProfile}}
+                                                {{#if sector}}{{sector}}
+                                                {{else}}Sector
+                                                {{/if}}
+                                            {{/with}}</span>
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="#">EMEA_travel</a></li>
-                                        <li><a href="#">EMEA_Retail</a></li>
-                                        <li><a href="#">EMEA_Media&Telco</a></li>
-                                        <li><a href="#">EMEA_Finance</a></li>
-                                        <li><a href="#">EMEA_Gaming</a></li>
-                                        <li><a href="#">US_Travel</a></li>
-                                        <li><a href="#">US_Retail</a></li>
-                                        <li><a href="#">US_Finance</a></li>
-                                        <li><a href="#">US_Media</a></li>
+                                        {{#each sectors}}
+                                            <li><a href="#">{{this}}</a></li>
+                                        {{/each}}
                                     </ul>
                                     <p class="text-danger">Please select appropriate Sector</p>
                                 </div>
