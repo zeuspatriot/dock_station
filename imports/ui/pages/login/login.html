@@ -28,8 +28,12 @@
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span id="positionText">
                                             {{#with userProfile}}
-                                                {{#if role}}{{role}}
-                                                {{else}}Role
+                                                {{#if tempLoginData.role}}
+                                                    {{tempLoginData.role}}
+                                                {{else}}
+                                                    {{#if role}}{{role}}
+                                                    {{else}}Role
+                                                    {{/if}}
                                                 {{/if}}
                                             {{/with}}</span>
                                         <span class="caret"></span>
@@ -48,8 +52,12 @@
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span id="sectorText">
                                             {{#with userProfile}}
-                                                {{#if sector}}{{sector}}
-                                                {{else}}Sector
+                                                {{#if tempLoginData.sector}}
+                                                    {{tempLoginData.sector}}
+                                                {{else}}
+                                                    {{#if sector}}{{sector}}
+                                                    {{else}}Sector
+                                                    {{/if}}
                                                 {{/if}}
                                             {{/with}}</span>
                                         <span class="caret"></span>

@@ -5,11 +5,17 @@ import {sAlert} from 'meteor/juliancwirko:s-alert';
 Template.loginPage.events({
     "click div#jobCode ul li a" : function(event){
         jQuery("#newUserRole").val(event.target.text.toLocaleLowerCase());
-        jQuery("div#jobCode button span#positionText").text(event.target.text);
+        var temp = Session.get("tempLoginData");
+        temp.role = event.target.text;
+        Session.set("tempLoginData", temp);
+        //jQuery("div#jobCode button span#positionText").text(event.target.text);
     },
     "click div#sector ul li a" : function(event){
         jQuery("#newUserSector").val(event.target.text.toLocaleLowerCase());
-        jQuery("div#sector button span#sectorText").text(event.target.text);
+        var temp = Session.get("tempLoginData");
+        temp.sector = event.target.text;
+        Session.set("tempLoginData", temp);
+        //jQuery("div#sector button span#sectorText").text(event.target.text);
     },
     "submit form#createUser": function(event){
         event.preventDefault();

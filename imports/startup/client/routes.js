@@ -33,6 +33,11 @@ Router.route("/clients/:client",function(){
     this.render('tests',{data:result});
 });
 
+Router.route("/profile", {
+    template : "profilePage",
+    name : "profile"
+});
+
 Router.onBeforeAction(function () {
     if (!Meteor.user() && !Meteor.loggingIn()) {
         this.redirect('/login');

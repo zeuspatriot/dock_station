@@ -1,4 +1,5 @@
-
+import {SECTORS} from '/imports/constants/sectors';
+import {ROLES} from '/imports/constants/roles';
 
 Template.loginPage.helpers({
     createAccount: function(){
@@ -14,20 +15,13 @@ Template.loginPage.helpers({
             };
         return profile;
     },
-    sectors: [
-        "EMEA_Travel",
-        "EMEA_Retail",
-        "EMEA_Media&Telco",
-        "EMEA_Finance",
-        "EMEA_Gaming",
-        "US_Travel",
-        "US_Retail",
-        "US_Finance",
-        "US_Media"
-    ],
-    roles: [
-        "Dev",
-        "Qc",
-        "Ta"
-    ]
+    sectors: SECTORS,
+    roles: ROLES,
+    tempLoginData: function(){
+        if(!Session.get("tempLoginData")){
+            Session.set("tempLoginData", {sector: "",role: ""});
+        }
+        var tempData = Session.get("tempLoginData");
+        return tempData;
+    }
 });
