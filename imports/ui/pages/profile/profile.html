@@ -57,19 +57,24 @@
                     </div>
                     <input type="text" name="sector" class="form-control hidden" id="userSector" placeholder="Sector" value="{{profile.sector}}">
                 </div>
-                <h2>Change your password</h2>
-                <div class="input-group">
-                    <span class="input-group-addon" id="oldPassword">Old password:</span>
-                    <input type="password" id="oldPassword" class="form-control" aria-describedby="oldPasswor">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="newPassword">New password:</span>
-                    <input type="password" id="newPassword" class="form-control" aria-describedby="newPassword">
-                </div>
-                <br>
+                <button id="submit" class="btn btn-primary">Submit Profile change</button>
 
-                <button id="submit" class="btn btn-primary">Submit All changes</button>
+                <h2>Change your password</h2>
+
+                <form  id="submitChangePassword">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="oldPassword">Old password:</span>
+                        <input type="password" name="oldPassword" id="oldPassword" required class="form-control" aria-describedby="oldPasswor">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="newPassword">New password:</span>
+                        <input type="password" name="newPassword" id="newPassword" required class="form-control" aria-describedby="newPassword">
+                    </div>
+                    <br>
+
+                    <button type="submit" id="submitChangePassword" class="btn btn-primary">Submit Password change</button>
+                </form>
             {{/with}}
         </div>
         <div class="col-md-7">
