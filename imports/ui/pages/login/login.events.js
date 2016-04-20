@@ -1,21 +1,20 @@
 import {youtrackApi} from '/imports/api/youtrack';
 import {Meteor} from 'meteor/meteor';
 import {sAlert} from 'meteor/juliancwirko:s-alert';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
 Template.loginPage.events({
-    "click div#jobCode ul li a" : function(event){
+    "click div#jobCode ul li a" : function(event, instance){
         jQuery("#newUserRole").val(event.target.text.toLocaleLowerCase());
-        var temp = Session.get("tempLoginData");
+        var temp = instance.state.get("tempLoginData");
         temp.role = event.target.text;
-        Session.set("tempLoginData", temp);
-        //jQuery("div#jobCode button span#positionText").text(event.target.text);
+        instance.state.set("tempLoginData", temp);
     },
-    "click div#sector ul li a" : function(event){
+    "click div#sector ul li a" : function(event, instance){
         jQuery("#newUserSector").val(event.target.text.toLocaleLowerCase());
-        var temp = Session.get("tempLoginData");
+        var temp = instance.state.get("tempLoginData");
         temp.sector = event.target.text;
-        Session.set("tempLoginData", temp);
-        //jQuery("div#sector button span#sectorText").text(event.target.text);
+        instance.state.set("tempLoginData", temp);
     },
     "submit form#createUser": function(event){
         event.preventDefault();
@@ -33,7 +32,6 @@ Template.loginPage.events({
             sector: sector
         };
         if(sector && role){
-            //youtrackReq("POST","user/login?login="+email+"&password="+password+"")
             youtrackApi.call("POST","user/login?login="+email+"&password="+password+"",Meteor.user())
                 .always(function(data){
                     if(data.status == 200){
@@ -71,10 +69,10 @@ Template.loginPage.events({
             }
         });
     },
-    "click a#createAcc": function(){
-        Session.set("isCreateAccount",true);
+    "click a#createAcc": function(event, instance){
+        instance.state.set("isCreateAccount",true);
     },
-    "click a#loginLink": function(){
-        Session.set("isCreateAccount",false);
+    "click a#loginLink": function(event, instance){
+        instance.state.set("isCreateAccount",false);
     }
 });

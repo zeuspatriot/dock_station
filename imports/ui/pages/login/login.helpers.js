@@ -1,9 +1,17 @@
 import {SECTORS} from '/imports/constants/sectors';
 import {ROLES} from '/imports/constants/roles';
+import { ReactiveDict } from 'meteor/reactive-dict';
+
+Template.loginPage.onCreated(function loginOnCreated(){
+    this.state = new ReactiveDict();
+    this.state.set("tempLoginData", {sector: "",role: ""});
+    this.state.set("isCreateAccount", false);
+});
 
 Template.loginPage.helpers({
     createAccount: function(){
-        return Session.get("isCreateAccount");
+        const instance = Template.instance();
+        return instance.state.get("isCreateAccount");
     },
     userProfile: function(){
         var profile = {
@@ -18,10 +26,8 @@ Template.loginPage.helpers({
     sectors: SECTORS,
     roles: ROLES,
     tempLoginData: function(){
-        if(!Session.get("tempLoginData")){
-            Session.set("tempLoginData", {sector: "",role: ""});
-        }
-        var tempData = Session.get("tempLoginData");
+        const instance = Template.instance();
+        var tempData = instance.state.get("tempLoginData");
         return tempData;
     }
 });

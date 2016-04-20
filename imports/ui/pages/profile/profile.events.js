@@ -2,21 +2,20 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { sAlert } from 'meteor/juliancwirko:s-alert';
 import { youtrackApi } from '/imports/api/youtrack';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
 Template.profilePage.events({
-    "click div#jobCode ul li a" : function(event){
+    "click div#jobCode ul li a" : function(event, instance){
         jQuery("#userRole").val(event.target.text.toLocaleLowerCase());
-        var temp = Session.get("tempProfileData");
+        var temp = instance.state.get("tempProfileData");
         temp.role = event.target.text;
-        Session.set("tempProfileData", temp);
-        //jQuery("div#jobCode button span#positionText").text(event.target.text);
+        instance.state.set("tempProfileData", temp);
     },
-    "click div#sector ul li a" : function(event){
+    "click div#sector ul li a" : function(event, instance){
         jQuery("#userSector").val(event.target.text.toLocaleLowerCase());
-        var temp = Session.get("tempProfileData");
+        var temp = instance.state.get("tempProfileData");
         temp.sector = event.target.text;
-        Session.set("tempProfileData", temp);
-        //jQuery("div#sector button span#sectorText").text(event.target.text);
+        instance.state.set("tempProfileData", temp);
     },
     "click #submit": function(){
         var currUserId = Meteor.user()._id;
