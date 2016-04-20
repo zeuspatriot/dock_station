@@ -77,8 +77,68 @@
                 </form>
             {{/with}}
         </div>
-        <div class="col-md-7">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <h2>Settings for {{currUser.profile.sector}}:</h2>
+            <form id="settings">
+                <h4>What YT fields would you like to use:</h4>
+                <ul class="list-group row">
+                    <li class="list-group-item">
+                        <label style="width: 100%;">Work Item State
+                            <span class="pull-right">
+                                <input type="checkbox" name="workItemState" class="checkbox ">
+                            </span>
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label style="width: 100%;">Current Owner
+                            <span class="pull-right">
+                                <input type="checkbox" name="currentOwner" class="checkbox ">
+                            </span>
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label style="width: 100%;">Assignee
+                            <span class="pull-right">
+                                <input type="checkbox" name="assignee" class="checkbox ">
+                            </span>
+                        </label>
+                    </li>
+                </ul>
 
+                <br>
+                <h4>Who may post Workitems to YT:</h4>
+                <ul class="list-group row ">
+                    <li class="list-group-item">
+                        <label style="width: 100%;">Technical Analysts
+                            <span class="pull-right">
+                                <input type="checkbox" name="ta" class="checkbox ">
+                            </span>
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label style="width: 100%;">Developers
+                            <span class="pull-right">
+                                <input type="checkbox" name="dev" class="checkbox ">
+                            </span>
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label style="width: 100%;">QA engineers
+                            <span class="pull-right">
+                                <input type="checkbox" name="qc" class="checkbox ">
+                            </span>
+                        </label>
+                    </li>
+                </ul>
+                <br>
+
+                <h4>Default working hours:</h4>
+                <div class="input-group">
+                    <span class="input-group-addon" id="oldPassword">Working hours per day:</span>
+                    <input type="number" step="1" min="1" max="8" name="workingHours" id="workingHours" class="form-control">
+                </div>
+            </form>
         </div>
     </div>
 

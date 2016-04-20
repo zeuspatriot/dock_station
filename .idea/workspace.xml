@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3354d194-2dc7-4f50-9560-e6fbe2f0bb4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/login/login.events.js" afterPath="$PROJECT_DIR$/imports/ui/pages/login/login.events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/login/login.helpers.js" afterPath="$PROJECT_DIR$/imports/ui/pages/login/login.helpers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" afterPath="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" afterPath="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/navbarModule.html" afterPath="$PROJECT_DIR$/view/navbarModule.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collections.js" afterPath="$PROJECT_DIR$/collections.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" afterPath="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" />
     </list>
     <list id="110e3b2f-510c-45b7-9337-f18735911a68" name="New changelist" comment="" />
     <ignored path="workitems.iws" />
@@ -41,21 +38,31 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="login.events.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/imports/ui/pages/login/login.events.js">
+          <file leaf-file-name="collections.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/collections.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.058891457">
-                  <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="1" column="44" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="login.helpers.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/imports/ui/pages/login/login.helpers.js">
+          <file leaf-file-name="profile.helpers.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.3988827">
+                  <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="profile.events.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
+                  <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
                   <folding />
                 </state>
               </provider>
@@ -65,32 +72,19 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-          <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-3.9230769">
-                  <caret line="6" column="31" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="31" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="profile.events.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.07597765">
-                  <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="profile.helpers.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="52" />
-                  <folding />
+                <state vertical-scroll-proportion="0.9217491">
+                  <caret line="138" column="20" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="20" />
+                  <folding>
+                    <element signature="n#style#0;n#label#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#label#0;n#li#1;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#label#0;n#li#2;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#label#0;n#li#0;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#label#0;n#li#1;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#label#0;n#li#2;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -123,7 +117,6 @@
       <list>
         <option value="$PROJECT_DIR$/workitems.html" />
         <option value="$PROJECT_DIR$/workitems.js" />
-        <option value="$PROJECT_DIR$/collections.js" />
         <option value="$PROJECT_DIR$/server/settings.js" />
         <option value="$PROJECT_DIR$/view/users.html" />
         <option value="$PROJECT_DIR$/view/clientPage.html" />
@@ -161,13 +154,14 @@
         <option value="$PROJECT_DIR$/imports/api/youtrack/index.js" />
         <option value="$PROJECT_DIR$/imports/startup/client/index.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/login/index.js" />
-        <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" />
         <option value="$PROJECT_DIR$/imports/startup/server/accountMethods.js" />
         <option value="$PROJECT_DIR$/view/navbarModule.html" />
         <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/login/login.helpers.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/login/login.events.js" />
+        <option value="$PROJECT_DIR$/collections.js" />
+        <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" />
       </list>
     </option>
   </component>
@@ -721,7 +715,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461182700913</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Replaced Session temp data with Reactive state data">
+      <created>1461184417111</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1461184417111</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -759,7 +759,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Login created&#10;" />
     <MESSAGE value="Login finalised&#10;- Create\Login blocks&#10;- Only YouTrack valid data can be registered&#10;- redirects are done after login or register&#10;" />
     <MESSAGE value="- Create Tests is done&#10;- Workitems permission setup&#10;- Addnew row, added to both tables bug -  is fixed" />
     <MESSAGE value="- Designs refarbished&#10;- Dev\Qc name dropdown change fixed&#10;- Active class issue on history fixed&#10;- Clients and Test are sorted now" />
@@ -784,7 +783,8 @@
     <MESSAGE value="- Login page rework&#10;* Roles and sectors moved to helpres" />
     <MESSAGE value="- Profile created&#10;- YoutrackApi Login endpoint added&#10;- temp data about user stored in Session" />
     <MESSAGE value="Profile page implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Profile page implemented" />
+    <MESSAGE value="Replaced Session temp data with Reactive state data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Replaced Session temp data with Reactive state data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -803,7 +803,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#label#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#1;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#2;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#0;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#1;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#2;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -916,13 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collections.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1046,13 +1046,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.01846381">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/pages/login/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6439394">
@@ -1114,34 +1107,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9230769">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07597765">
-          <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
           <folding />
         </state>
       </provider>
@@ -1156,9 +1125,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/pages/login/login.events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.058891457">
+        <state vertical-scroll-proportion="-1.7586207">
           <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collections.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="44" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3988827">
+          <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9217491">
+          <caret line="138" column="20" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#label#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#1;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#2;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#0;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#1;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#2;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
