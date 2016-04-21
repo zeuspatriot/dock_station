@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3354d194-2dc7-4f50-9560-e6fbe2f0bb4f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imports/startup/server/settingsMethods.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collections.js" afterPath="$PROJECT_DIR$/collections.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/accountMethods.js" afterPath="$PROJECT_DIR$/imports/startup/server/accountMethods.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/index.js" afterPath="$PROJECT_DIR$/imports/startup/server/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" afterPath="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" afterPath="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" afterPath="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/workitemsPagePublishj.js" afterPath="$PROJECT_DIR$/server/workitemsPagePublishj.js" />
     </list>
     <list id="110e3b2f-510c-45b7-9337-f18735911a68" name="New changelist" comment="" />
     <ignored path="workitems.iws" />
@@ -25,14 +30,14 @@
     <favorites_list name="workitems" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4509804">
+    <splitter split-orientation="horizontal" split-proportion="0.47982347">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-          <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
+          <file leaf-file-name="accountMethods.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/imports/startup/server/accountMethods.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+                  <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -51,8 +56,8 @@
           <file leaf-file-name="profile.helpers.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.3988827">
-                  <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+                <state vertical-scroll-proportion="0.36089385">
+                  <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
                   <folding />
                 </state>
               </provider>
@@ -62,7 +67,17 @@
             <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
+                  <caret line="82" column="18" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="workitemsPagePublishj.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/workitemsPagePublishj.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
@@ -75,8 +90,8 @@
           <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.9217491">
-                  <caret line="138" column="20" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="20" />
+                <state vertical-scroll-proportion="0.08055236">
+                  <caret line="96" column="115" selection-start-line="96" selection-start-column="115" selection-end-line="96" selection-end-column="115" />
                   <folding>
                     <element signature="n#style#0;n#label#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#label#0;n#li#1;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -85,6 +100,16 @@
                     <element signature="n#style#0;n#label#0;n#li#1;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#label#0;n#li#2;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="settingsMethods.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/imports/startup/server/settingsMethods.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="11" column="0" selection-start-line="8" selection-start-column="73" selection-end-line="11" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -129,7 +154,6 @@
         <option value="$PROJECT_DIR$/client/login.js" />
         <option value="$PROJECT_DIR$/client/tests.js" />
         <option value="$PROJECT_DIR$/server/methods.js" />
-        <option value="$PROJECT_DIR$/server/workitemsPagePublishj.js" />
         <option value="$PROJECT_DIR$/client/clients.js" />
         <option value="$PROJECT_DIR$/view/workitems.html" />
         <option value="$PROJECT_DIR$/client/workitems.js" />
@@ -149,19 +173,22 @@
         <option value="$PROJECT_DIR$/imports/api/server/accountManagement.js" />
         <option value="$PROJECT_DIR$/imports/api/server/accountManagement/index.js" />
         <option value="$PROJECT_DIR$/imports/api/server/accountManagement/accountManagement.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/index.js" />
         <option value="$PROJECT_DIR$/server/main.js" />
         <option value="$PROJECT_DIR$/imports/api/youtrack/index.js" />
         <option value="$PROJECT_DIR$/imports/startup/client/index.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/login/index.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/accountMethods.js" />
         <option value="$PROJECT_DIR$/view/navbarModule.html" />
-        <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" />
-        <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/login/login.helpers.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/login/login.events.js" />
         <option value="$PROJECT_DIR$/collections.js" />
+        <option value="$PROJECT_DIR$/imports/api/settings/index.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/index.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/accountMethods.js" />
+        <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js" />
+        <option value="$PROJECT_DIR$/server/workitemsPagePublishj.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.html" />
+        <option value="$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/settingsMethods.js" />
       </list>
     </option>
   </component>
@@ -721,14 +748,20 @@
       <option name="project" value="LOCAL" />
       <updated>1461184417111</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Settings started">
+      <created>1461188199428</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1461188199428</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16438356" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16438356" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5016455" order="0" side_tool="true" content_ui="tabs" />
@@ -759,7 +792,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Login finalised&#10;- Create\Login blocks&#10;- Only YouTrack valid data can be registered&#10;- redirects are done after login or register&#10;" />
     <MESSAGE value="- Create Tests is done&#10;- Workitems permission setup&#10;- Addnew row, added to both tables bug -  is fixed" />
     <MESSAGE value="- Designs refarbished&#10;- Dev\Qc name dropdown change fixed&#10;- Active class issue on history fixed&#10;- Clients and Test are sorted now" />
     <MESSAGE value="- clients page finished&#10;- tests list page finished" />
@@ -784,21 +816,14 @@
     <MESSAGE value="- Profile created&#10;- YoutrackApi Login endpoint added&#10;- temp data about user stored in Session" />
     <MESSAGE value="Profile page implemented" />
     <MESSAGE value="Replaced Session temp data with Reactive state data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Replaced Session temp data with Reactive state data" />
+    <MESSAGE value="Settings started" />
+    <option name="LAST_COMMIT_MESSAGE" value="Settings started" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/imports/api/youtrack/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="11" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -982,27 +1007,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/workitems.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="1" selection-start-line="23" selection-start-column="21" selection-end-line="37" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/workitemsPagePublishj.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1519553">
-          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/constants/sectors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1035,14 +1039,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/youtrack/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="11" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1079,14 +1075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/accountMethods.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18994413">
-          <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
           <folding />
         </state>
       </provider>
@@ -1131,10 +1119,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/index.js">
+    <entry file="file://$PROJECT_DIR$/imports/api/youtrack/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.74078214">
+          <caret line="39" column="11" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -1147,26 +1135,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.018994413">
+          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3988827">
-          <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/workitemsPagePublishj.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/workitems.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.22122905">
+          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="18" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/accountMethods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/settingsMethods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="0" selection-start-line="8" selection-start-column="73" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9217491">
-          <caret line="138" column="20" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.08055236">
+          <caret line="96" column="115" selection-start-line="96" selection-start-column="115" selection-end-line="96" selection-end-column="115" />
           <folding>
             <element signature="n#style#0;n#label#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#0;n#li#1;n#ul#0;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -1175,6 +1203,14 @@
             <element signature="n#style#0;n#label#0;n#li#1;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#0;n#li#2;n#ul#1;n#form#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/profile/profile.helpers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36089385">
+          <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -10,3 +10,6 @@ Meteor.publish("tests", function(sector){
     }
     return Tests.find({sector: sector});
 });
+Meteor.publish('settings', function(){
+    return Settings.find({});
+});

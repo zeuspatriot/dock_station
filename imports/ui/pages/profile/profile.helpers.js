@@ -6,6 +6,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 Template.profilePage.onCreated(function profileOnCreated(){
     this.state = new ReactiveDict();
     this.state.set("tempProfileData", {sector: "",role: ""});
+    Meteor.subscribe("settings");
 });
 
 Template.profilePage.helpers({
@@ -18,6 +19,9 @@ Template.profilePage.helpers({
         const instance = Template.instance();
         var tempData = instance.state.get('tempProfileData');
         return tempData;
+    },
+    sectorSettings: function(){
+        return Settings.findOne({sector:Meteor.user().profile.sector});
     }
 });
 

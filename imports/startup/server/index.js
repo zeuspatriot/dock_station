@@ -1,1 +1,2 @@
 import "./accountMethods";
+import "./settingsMethods";

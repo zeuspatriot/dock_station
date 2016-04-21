@@ -24,14 +24,12 @@ Template.profilePage.events({
         var newName = jQuery("#name").val();
         var newSector = jQuery("#userSector").val();
         var newRole = jQuery("#userRole").val();
-        var data = {$set:
-            {
+        var data = {
                 "profile.name":newName,
                 "profile.role":newRole,
                 "profile.sector": newSector,
                 "profile.email": newLogin
-            }
-        };
+            };
 
         Meteor.call("changeUserData", currUserId, data);
 
@@ -71,5 +69,21 @@ Template.profilePage.events({
         else{
             sAlert.error("New Password must not be same as old password");
         }
+    },
+    'submit #settings': function(event, instance){
+        event.preventDefault();
+        var settings = {};
+        jQuery("form#"+event.target.id).find("input").each(function(){
+            this.type == 'checkbox'
+                ? settings[this.name] = this.checked
+                : settings[this.name] = this.value;
+        });
+        Meteor.call("updateSettings", Meteor.user().profile.sector, settings, function(err,resp){
+            if(err) sAlert.error(err);
+            else {
+                sAlert.success("Settings saved");
+            }
+        });
+
     }
 });

@@ -15,6 +15,6 @@ Meteor.methods({
         }
     },
     changeUserData: function(userId, data){
-        return Meteor.users.update(userId, data);
+        return Meteor.users.update(userId, {$set:data});
     }
 });
