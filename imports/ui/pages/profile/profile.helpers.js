@@ -13,6 +13,9 @@ Template.profilePage.helpers({
     currUser : function(){
         return Meteor.user();
     },
+    isTa: function(){
+        return Meteor.user().profile.role == 'ta';
+    },
     sectors: SECTORS,
     roles: ROLES,
     tempProfileData: function(){

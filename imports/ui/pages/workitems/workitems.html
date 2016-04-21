@@ -1,0 +1,248 @@
+<template name="workitems">
+    {{>navbarModule}}
+    {{>sAlert}}
+    <div class="container">
+        {{#with sectorSettings}}
+        {{/with}}
+        <h2><a href="/clients/{{test.client}}">{{test.client}}</a>: {{test.name}} {{#if test.testId}}<small><a target="_blank" href="https://maxymiser.myjetbrains.com/youtrack/issue/{{test.testId}}"><span class="glyphicon glyphicon-link"></span></a></small>{{/if}}</h2>
+        <div class="row">
+
+                <div class="col-md-4" id="settings">
+                    <div class="form-group">
+                        <label for="campaignId">New Campaign ticket ID</label>
+                        <div class="input-group">
+                            <input type="text" id="campaignId" required class="form-control" value="{{test.testId}}">
+                        <span class="input-group-btn">
+                            <button class="btn {{#if test.testId}}btn-success{{else}}btn-primary{{/if}}" id="setNewCampId">{{#if test.testId}}Update ID{{else}}Set ID{{/if}}</button>
+                        </span>
+                        </div>
+                    </div>
+                    {{#if allowedToPublish}}
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="devNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span id="text">{{#if test.dev}}{{test.dev.profile.name}}{{else}}Developer name{{/if}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    {{#each developers}}
+                                        <li class="devName"><a href="#">{{profile.name}}</a></li>
+                                    {{/each}}
+                                </ul>
+                                <span class="pull-right">Select developer</span>
+                            </div>
+                            <input type="text" id="devName" class="form-control hidden">
+                        </div>
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="qcNameBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span id="text">{{#if test.qc}}{{test.qc.profile.name}}{{else}}Qc name{{/if}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    {{#each qcs}}
+                                        <li class="qcName"><a href="#">{{profile.name}}</a></li>
+                                    {{/each}}
+                                </ul>
+                                <span class="pull-right">Select Qc</span>
+                            </div>
+                            <input type="text" id="qcName" class="form-control hidden">
+                        </div>
+                    {{/if}}
+                </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <h3>Provide estimate</h3>
+                <form id="generate">
+                    <table class="table table-striped" id="workitemsTable">
+                        <thead>
+                            <tr>
+                                {{#if currOwnerEnabled}}<th>Current owner</th>{{/if}}
+                                <th>Item name</th>
+                                <th>Dev est</th>
+                                <th>Qc est</th>
+                                <th>Group</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each currentWorkitems}}
+                                <tr>
+                                    {{#if currOwnerEnabled}}
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        <span id="text" class="text">{{owner}}</span>
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li class="owner"><a href="#">None</a></li>
+                                                        <li class="owner"><a href="#">Dev</a></li>
+                                                        <li class="owner"><a href="#">Qc</a></li>
+                                                    </ul>
+                                                    <input type="text" id="currOwner" class="form-control hidden" value="{{owner}}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    {{/if}}
+                                    <td>
+                                        <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="{{name}}">
+                                    </td>
+                                    <td>
+                                        <input type="number" required step="1" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="{{devEst}}">
+                                    </td>
+                                    <td>
+                                        <input type="number" required step="1" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="{{qcEst}}">
+                                    </td>
+                                    <td>
+                                        <input type="number" required step="1" id="group" name="group" class="form-control" title="Group id" value="{{group}}">
+                                    </td>
+                                    <td>
+                                        <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            {{#unless currentWorkitems}}
+                                {{#each presetItems}}
+
+                                    <tr id="initial" class="added">
+                                        {{#if currOwnerEnabled}}
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-default dropdown-toggle owner" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            <span id="text">{{owner}}</span>
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                            <li class="owner"><a href="#">None</a></li>
+                                                            <li class="owner"><a href="#">Dev</a></li>
+                                                            <li class="owner"><a href="#">Qc</a></li>
+                                                        </ul>
+                                                        <input type="text" id="currOwner" class="form-control hidden" value="{{#if owner}}{{owner}}{{else}}None{{/if}}">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        {{/if}}
+                                        <td>
+                                            <input type="text" required id="workitemName" name="name" class="form-control" title="Workitem Name" value="{{name}}">
+                                        </td>
+                                        <td>
+                                            <input type="number" required step="1" min="0" id="devEst" name="devEst" class="form-control" title="Dev estimate" value="0">
+                                        </td>
+                                        <td>
+                                            <input type="number" required step="1" min="0" id="qcEst" name="qcEst" class="form-control" title="Qc estimate" value="0">
+                                        </td>
+                                        <td>
+                                            <input type="number" required step="1" min="1" id="group" name="group" class="form-control" title="Group id" value="{{group}}">
+                                        </td>
+                                        <td>
+                                            <a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            {{/unless}}
+                        </tbody>
+                    </table>
+                <div class="form-group row"  style="padding-left: 20px; padding-right: 15px">
+                    <button type="button" class="btn btn-default center-block" id="addNewItem" style="width: 100%" >Add another item</button>
+                </div>
+
+                <div class="form-group">
+
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary" id="generate">Form Work-items</button>
+                        </span>
+                            <input type="text" id="submitComment" required class="form-control" placeholder="Comment to your estimate">
+                        </div>
+
+
+                </div>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <h3>Final Workitems</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Name</th>
+                            <th>Dev H</th>
+                            <th>Qc H</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each groupedLastWorkItems}}
+                            <tr>
+                                <td>
+                                    {{group}}
+                                </td>
+                                <td>
+                                    {{value.name}}
+                                </td>
+                                <td>
+                                    {{value.devEst}}
+                                </td>
+                                <td>
+                                    {{value.qcEst}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong>Total Estimate: {{estimateTotals.total}}h</strong>
+                                </td>
+                                <td>
+                                    <strong>{{estimateTotals.devTotal}}h</strong>
+                                </td>
+                                <td>
+                                    <strong>{{estimateTotals.qcTotal}}h</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {{#if allowedToPublish}}
+                    <div class="form-group row"  style="padding-left: 25px; padding-right: 25px">
+                        <button class="btn btn-success" id="createWorkItems" style="width: 100%" >Post to YouTrack</button>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="row">
+                    <h3>Change history</h3>
+                    <div class="list-group" id="estimateHistory">
+                        {{#each estimates}}
+                            <a href="#" class="list-group-item {{#if active}}active{{/if}}">
+                                <h4 class="list-item-heading">
+                                    {{comment}}.
+                                </h4>
+                                <p class="list-item-text">
+                                    By: {{updater}}
+                                    <span class="badge pull-right">{{formatDate date}}</span>
+                                </p>
+                            </a>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="greyout"></div>
+        <div class="col-md-3 centerPopup" id="postsToYoutrackProgress" style="display: none">
+            <div class="panel panel-default center-block">
+                <div class="panel-heading">Workitems are in a process of creation</div>
+                <div class="panel-body">
+                    <span id="holder">You have <span id="counter">n</span> out of <span id="generalCount"></span> workitems left to create.</span>
+                    <button class="btn btn-primary center-block" id="ok" style="margin-top: 10px">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
