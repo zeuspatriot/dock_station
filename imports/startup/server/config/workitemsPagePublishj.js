@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 Meteor.publish("users", function (sector){
     if(!this.userId){
         return this.ready();

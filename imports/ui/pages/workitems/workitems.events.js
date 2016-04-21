@@ -56,6 +56,12 @@ Template.workitems.events({
         jQuery("div#settings input#qcName").val(this.profile.email);
         Meteor.call("updateTestById",global.data._id,{qc:this});
     },
+    "click li.resetDev": function(event, global){
+        Meteor.call("resetDev",global.data._id);
+    },
+    "click li.resetQc": function(event,global){
+        Meteor.call("resetQc",global.data._id);
+    },
     "click #setNewCampId": function(event, global){
         var newCampId = jQuery("#campaignId").val();
         if(newCampId){

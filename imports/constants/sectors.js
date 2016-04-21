@@ -4,8 +4,7 @@ export const SECTORS = [
     "EMEA_Media&Telco",
     "EMEA_Finance",
     "EMEA_Gaming",
-    "US_Travel",
+    "US_Media&Travel",
     "US_Retail",
-    "US_Finance",
-    "US_Media"
+    "US_Finance"
 ];

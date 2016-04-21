@@ -1,23 +1,11 @@
+import { Router } from 'meteor/iron:router';
+import { Meteor } from 'meteor/meteor';
+
 function refreshPopup (){
     jQuery("#deleteTestConfirm").text("");
     jQuery("#deleteTestConfirm").append('<div class="panel panel-default center-block"><div class="panel-heading" style="background-color: orangered; color: white;">Delete action is permanent</div><div class="panel-body"><span id="holder">Are you sure, that you want to delete "<span class="testName"></span>", action is permanent, and cannot be reverted</span><br><div class="center-block" style="text-align: center"><button class="btn btn-warning pull-left" id="cancel" style="margin-top: 10px">Cancel</button><button class="btn btn-primary pull-right" id="ok" style="margin-top: 10px">Delete Test</button></div></div></div>');
 }
 
-Template.tests.helpers({
-    "tests": function(){
-        var clientName = "";
-        if(this.clientName) clientName = this.clientName;
-        //var userSector = "";
-        //if(Meteor.user()) userSector = Meteor.user().profile.sector;
-        var tests = Tests.find({client: clientName},{sort:{name:1}});
-        return tests;
-    },
-    "clientName": function(){
-        var clientName = "";
-        if(this.clientName) clientName = this.clientName;
-        return clientName;
-    }
-});
 Template.tests.events({
     "click #addNewTest": function(){
         jQuery("#addNewTestHolder").hide();
