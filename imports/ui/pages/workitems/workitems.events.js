@@ -151,6 +151,10 @@ Template.workitems.events({
                         return youtrackApi.changeEstimate(createdItemId, devEst, qcEst, user);
                     })
                     .then(function(data){
+                        var command = {command : "Client Account "+ mainTicketData['Client Account'] + " OA Name "+ mainTicketData['OA Name']+" "}
+                        return youtrackApi.call("POST","issue/"+ createdItemId+"/execute",user,command);
+                    })
+                    .then(function(data){
                         return youtrackApi.putToBacklogAndAssignToMainTicket(createdItemId, mainTicketId, user);
                     })
                     .then(function(data){
@@ -189,6 +193,10 @@ Template.workitems.events({
                     .then(function(data){
                         createdItemId = data.id;
                         return youtrackApi.changeEstimate(createdItemId, devEst, qcEst, user);
+                    })
+                    .then(function(data){
+                        var command = {command : "Client Account "+ mainTicketData['Client Account'] + " OA Name "+ mainTicketData['OA Name']+" "}
+                        return youtrackApi.call("POST","issue/"+ createdItemId+"/execute",user,command);
                     })
                     .then(function(data){
                         return youtrackApi.putToBacklogAndAssignToMainTicket(createdItemId, mainTicketId, user);
