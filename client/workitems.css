@@ -1,0 +1,15 @@
+.bootbox.modal{
+	z-index: 100650;
+}
+.modal-backdrop{
+	z-index: 100600;
+}
+.modal-dialog{
+	z-index: 100650;
+}
+.bg-custom-primary{
+	background-color: #337ab7 !important;
+}
+.mg-left-10{
+	margin-left: 10px;
+}

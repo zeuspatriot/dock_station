@@ -1,0 +1,1 @@
+export const YOUTRACK_BASE_URL = "https://youtrack.oraclecorp.com/rest/";

@@ -1,0 +1,55 @@
+<template name="loginPage">
+    {{>navbarModule}}
+    {{>sAlert}}
+    <div class="container">
+        <br>
+        <div class="row">
+            {{#if createAccount}}
+                <div class="panel panel-default createAccount col-md-4 col-md-offset-4 " style="padding: 0">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Create account</h3>
+                    </div>
+                    <div class="panel-body ">
+                        <form id="createUser">
+                            <div class="form-group">
+                                <label for="newUserEmail">Your email</label>
+                                <input type="email" name="email" required class="form-control" id="newUserEmail" placeholder="John.Doe@company.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserPassword">Your Password</label>
+                                <input type="password" name="password" required class="form-control" id="newUserPassword" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserPasswordConfirm">Confirm Password</label>
+                                <input type="password" name="passwordConfirm" required class="form-control" id="newUserPasswordConfirm" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="registerButton">Create</button>
+                        </form>
+                        <a href="#" class="pull-right" id="loginLink">I want to Log in</a>
+                    </div>
+                </div>
+            {{/if}}
+            {{#unless createAccount}}
+                <div class="panel panel-default login col-md-4 col-md-offset-4" style="padding: 0">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Login</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="loginUser">
+                            <div class="form-group">
+                                <label for="newUserEmail">Your email</label>
+                                <input type="text" name="email" required class="form-control" id="newUserEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserPassword">Password</label>
+                                <input type="password" name="password" required class="form-control" id="newUserPassword" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="loginButton">Log in</button>
+                        </form>
+                        <a href="#" class="pull-right" id="createAcc">Register</a>
+                    </div>
+                </div>
+            {{/unless}}
+        </div>
+    </div>
+</template>

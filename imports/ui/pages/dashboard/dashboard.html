@@ -1,0 +1,55 @@
+<template name="dashboardPage">
+    {{>navbarModule}}
+    {{>sAlert}}
+    <div class="container">
+        <div class="row userList">
+            <table class="table table-stripped">
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                {{#each users}}
+                    <tr>
+                        <td>{{this.username}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="row deviceList">
+            <table class="table table-striped">
+                <thead>
+                    <th>Device name</th>
+                    <th>OS</th>
+                    <th>Browsers</th>
+                    <th>Office</th>
+                    <th>Availability</th>
+                </thead>
+                <tbody>
+                {{#each devices}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.os}}</td>
+                        <td>
+                            {{#each this.browsersList}}
+                                <span class="label label-default">{{this}}</span>
+                            {{/each}}
+                        </td>
+                        <td>{{this.office}}</td>
+                        <td>
+                            {{#if this.takenBy}}
+                                <span class="label label-warning">{{this.takenBy}}</span>
+                                {{else}}
+                                <span class="label label-success">Available</span>
+                            {{/if}}
+
+
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
