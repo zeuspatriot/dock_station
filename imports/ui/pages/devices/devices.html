@@ -2,30 +2,37 @@
     {{>navbarModule}}
     {{>sAlert}}
     <div class="container">
+        {{#if isNewDevice}}
+            <div class="row newDevice">
+                <form id="createDeviceForm">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="deviceNameLabel">Device Name</span>
+                        <input type="text" class="form-control" name="deviceName" id="deviceName" placeholder="Samsung Edge 6">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="deviceOsLabel">Device OS</span>
+                        <input type="text" class="form-control" name="deviceOs" id="deviceOs" placeholder="Android 6.0.1">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="deviceBrowsersListLabel">Browsers List</span>
+                        <input type="text" class="form-control" name="deviceBrowsers" id="deviceBrowsers" placeholder="Android Webkit;Chrome">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="deviceOfficeLabel">Office</span>
+                        <input type="text" class="form-control" name="deviceOffice" id="deviceOffice" placeholder="Kasprzaka 2/8">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary" id="createDevice">Create device</button>
+                </form>
+            </div>
+        {{/if}}
         <div class="row">
-            <form id="createDeviceForm">
-                <div class="input-group">
-                    <span class="input-group-addon" id="deviceNameLabel">Device Name</span>
-                    <input type="text" class="form-control" name="deviceName" id="deviceName" placeholder="Samsung Edge 6">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="deviceOsLabel">Device OS</span>
-                    <input type="text" class="form-control" name="deviceOs" id="deviceOs" placeholder="Android 6.0.1">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="deviceBrowsersListLabel">Browsers List</span>
-                    <input type="text" class="form-control" name="deviceBrowsers" id="deviceBrowsers" placeholder="Android Webkit;Chrome">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="deviceOfficeLabel">Office</span>
-                    <input type="text" class="form-control" name="deviceOffice" id="deviceOffice" placeholder="Kasprzaka 2/8">
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary" id="createDevice">Create device</button>
-            </form>
+            <button class="btn btn-primary" type="button" id="addNewDevice">Create New Device</button>
         </div>
+        <br>
+        {{>deviceList}}
     </div>
 </template>

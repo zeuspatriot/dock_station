@@ -17,5 +17,9 @@ Template.devicesPage.events({
             sAlert.success("New Device created");
             jQuery('input').value("");
         });
+    },
+    "click #addNewDevice": function(){
+        const instance = Template.instance();
+        instance.state.set("isNewDeviceFlag",!instance.state.get("isNewDeviceFlag"))
     }
 });
