@@ -1,6 +1,43 @@
 <template name="deviceInfo">
-    Hi! I am deviceInfo!
-    {{#with device}}
-        {{this.name}}
-    {{/with}}
+    {{>navbarModule}}
+    {{>sAlert}}
+    <div class="container">
+        {{#with device}}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row newDevice">
+                        <form id="updateDeviceForm">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="deviceNameLabel">Device Name</span>
+                                <input type="text" class="form-control" name="deviceName" id="deviceName" value="{{this.name}}">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="deviceOsLabel">Device OS</span>
+                                <input type="text" class="form-control" name="deviceOs" id="deviceOs" value="{{this.os}}">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="deviceBrowsersListLabel">Browsers List</span>
+                                <input type="text" class="form-control" name="deviceBrowsers" id="deviceBrowsers" value="{{this.browsersList}}">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="deviceOfficeLabel">Office</span>
+                                <input type="text" class="form-control" name="deviceOffice" id="deviceOffice" value="{{this.office}}">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary" id="updateDevice">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="photo">
+                        <img src="http://s3.amazonaws.com/libapps/customers/1633/images/icon_52143.png" alt="device image">
+                    </div>
+                </div>
+            </div>
+        {{/with}}
+    </div>
+
 </template>

@@ -7,7 +7,7 @@ Template.devicesPage.events({
         var device = {
             name: event.target.deviceName.value,
             os: event.target.deviceOs.value,
-            browsersList: event.target.deviceBrowsers.value.split(";"),
+            browsersList: event.target.deviceBrowsers.value.split(","),
             office: event.target.deviceOffice.value,
             takenBy: false
         };

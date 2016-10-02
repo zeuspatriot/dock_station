@@ -11,7 +11,7 @@ Template.deviceInfo.helpers({
        Meteor.call("getDeviceById","WcwKup67Joxf5vxJH", function(err,res){
            instance.state.set("device", res)
        });
-       var a = instance.state.get("device");
-       return a;
+       var device = instance.state.get("device");
+       return device;
    }
 });

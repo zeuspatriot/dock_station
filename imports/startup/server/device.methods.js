@@ -13,12 +13,16 @@ Meteor.methods({
         return Devices.find({}).fetch();
     },
     getDeviceById: function(id){
-        console.log(id);
         var device = Devices.findOne({_id: id});
-        console.log(device);
         return device;
     },
-    getConsoleLog: function(){
-        console.log("Yuppie");
+    updateDevice: function(id, device){
+        return Devices.update({_id:id},{$set: device});
+    },
+    resetDevicesAvailability: function(){ // Delete before Production, helper function
+        var devices = Devices.find({}).fetch();
+        devices.forEach(function(device){
+            Devices.update({_id: device._id},{$set:{takenBy: false}})
+        });
     }
 });
