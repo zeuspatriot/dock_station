@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Router } from 'meteor/iron:router';
-import { Devices } from "/collections";
+import { Devices } from "/imports/api/collections";
 
 //Router.route("/workitems/:_id",function(){
 //    var currTest = Tests.findOne({_id:this.params._id});

@@ -1,6 +1,6 @@
 import {bootboxjs} from 'meteor/mizzao:bootboxjs';
 import {YOUTRACK_BASE_URL} from '/imports/constants/urls';
-import { Settings } from "/collections";
+import { Settings } from "/imports/api/collections";
 
 var settings;
 var memoPass = '';

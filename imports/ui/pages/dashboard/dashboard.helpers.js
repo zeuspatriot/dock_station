@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Devices } from '/collections';
+import { Devices } from '/imports/api/collections';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 Template.dashboardPage.onCreated(function profileOnCreated(){

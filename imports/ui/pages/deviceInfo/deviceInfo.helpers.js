@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { Devices } from "/collections";
+import { Devices } from "/imports/api/collections";
 
 Template.deviceInfo.onCreated(function(){
     this.state = new ReactiveDict();

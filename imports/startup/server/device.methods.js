@@ -1,6 +1,9 @@
 import { Meteor } from "meteor/meteor";
-import { Devices } from "/collections";
+import { Devices } from "/imports/api/collections";
 
+Meteor.publish('deviceList', function(){
+    return Devices.find({});
+});
 
 Meteor.methods({
     createDevice: function(device){
@@ -18,6 +21,14 @@ Meteor.methods({
     },
     updateDevice: function(id, device){
         return Devices.update({_id:id},{$set: device});
+    },
+    bookDevice: function(id){
+        Devices.update(id, {$set:{takenBy: "booked for " + Meteor.user().username,booked: true}});
+        Meteor.setTimeout(function(){
+            if(Devices.findOne({_id: id}).booked){
+                return Devices.update(id, {$set:{takenBy: false, booked:false}});
+            }
+        },5000);
     },
     resetDevicesAvailability: function(){ // Delete before Production, helper function
         var devices = Devices.find({}).fetch();

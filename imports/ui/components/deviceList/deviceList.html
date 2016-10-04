@@ -21,7 +21,7 @@
                     <td>{{this.office}}</td>
                     <td>
                         {{#if this.takenBy}}
-                            <span class="label label-warning">{{this.takenBy}}</span>
+                            <span class="label {{#if this.booked}}label-danger{{else}}label-warning{{/if}}">{{this.takenBy}}</span>
                         {{else}}
                             <a href=""><span class="label label-success bookDevice">Click to Book</span></a>
                         {{/if}}
