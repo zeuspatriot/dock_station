@@ -23,17 +23,34 @@ Meteor.methods({
         return Devices.update({_id:id},{$set: device});
     },
     bookDevice: function(id){
-        Devices.update(id, {$set:{takenBy: "booked for " + Meteor.user().username,booked: true}});
+        Devices.update(id, {$set:{takenBy: Meteor.user().username, booked: true}});
         Meteor.setTimeout(function(){
             if(Devices.findOne({_id: id}).booked){
                 return Devices.update(id, {$set:{takenBy: false, booked:false}});
             }
-        },5000);
+        },10000);
     },
     resetDevicesAvailability: function(){ // Delete before Production, helper function
         var devices = Devices.find({}).fetch();
         devices.forEach(function(device){
             Devices.update({_id: device._id},{$set:{takenBy: false}})
         });
+    },
+    takeBookedDevices: function(userId){
+        var user = Meteor.users.findOne({_id: userId});
+        if(user){
+            var devicesForUser = Devices.find({takenBy: user.username, booked: true}).fetch();
+            if(devicesForUser.length){
+                devicesForUser.forEach(function(device){
+                    Devices.update(device._id,{$set:{booked: false}});
+                });
+            }
+        }
+        else{
+            console.log("User was not found");
+        }
+    },
+    echo: function(id){
+        console.log(Meteor.users.findOne({_id: id}).username);
     }
 });
