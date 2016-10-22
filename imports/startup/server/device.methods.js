@@ -50,6 +50,10 @@ Meteor.methods({
             console.log("User was not found");
         }
     },
+    returnDevice: function(deviceId){
+        var lastUser = Devices.findOne(deviceId).takenBy;
+        Devices.update(deviceId, {$set:{takenBy: false, lastUser: lastUser}});
+    },
     echo: function(id){
         console.log(Meteor.users.findOne({_id: id}).username);
     }
